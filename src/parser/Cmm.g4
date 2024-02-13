@@ -20,7 +20,16 @@ fragment
 EXPONENT:'E'('-'|'+')DIGIT+
         |'e'DIGIT+
         ;
-  		 
+
+ID: (LETTER|'_')(LETTER|DIGIT|'_')*
+            ;
+
+CHAR_CONSTANT: '\''.'\''
+                | '\'\\n\''
+                | '\'\\t\''
+                | '\'\\' INT_CONSTANT '\''
+                ;
+
 INT_CONSTANT:[1-9]DIGIT*
             |'0'
             ;
@@ -37,12 +46,3 @@ MULTIPLE_LINE_COMMENT: '/*' .*? '*/' -> skip
 
 WS: [ \t\n\r]+ -> skip
     ;
-
-ID: (LETTER|'_')(LETTER|DIGIT|'_')*
-            ;
-
-CHAR_CONSTANT: '\''.'\''
-                | '\'\\n\''
-                | '\'\\t\''
-                | '\'\\' INT_CONSTANT '\''
-                ;

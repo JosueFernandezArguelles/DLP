@@ -1,4 +1,4 @@
-// Generated from C:/Users/josue/Desktop/dlp_lab3/src/parser/Cmm.g4 by ANTLR 4.13.1
+// Generated from C:/Users/josue/Desktop/dlp_parser/src/parser/Cmm.g4 by ANTLR 4.13.1
 package parser;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
