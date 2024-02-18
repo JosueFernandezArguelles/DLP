@@ -17,8 +17,8 @@ FLOATING_POINT: '.'DIGIT+
                 ;
 
 fragment
-EXPONENT:'E'('-'|'+')INT_CONSTANT+
-        |'e'INT_CONSTANT+
+EXPONENT:'E'('-'|'+')INT_CONSTANT
+        |'e'INT_CONSTANT
         ;
 
 ID: (LETTER|'_')(LETTER|DIGIT|'_')*

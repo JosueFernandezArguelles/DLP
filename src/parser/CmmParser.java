@@ -92,7 +92,6 @@ public class CmmParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class ProgramContext extends ParserRuleContext {
-		public TerminalNode REAL_CONSTANT() { return getToken(CmmParser.REAL_CONSTANT, 0); }
 		public ProgramContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -105,8 +104,6 @@ public class CmmParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(2);
-			match(REAL_CONSTANT);
 			}
 		}
 		catch (RecognitionException re) {
@@ -123,7 +120,7 @@ public class CmmParser extends Parser {
 	public static final String _serializedATN =
 		"\u0004\u0001\u0007\u0005\u0002\u0000\u0007\u0000\u0001\u0000\u0001\u0000"+
 		"\u0001\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0003\u0000\u0002\u0001"+
-		"\u0000\u0000\u0000\u0002\u0003\u0005\u0003\u0000\u0000\u0003\u0001\u0001"+
+		"\u0000\u0000\u0000\u0002\u0003\u0001\u0000\u0000\u0000\u0003\u0001\u0001"+
 		"\u0000\u0000\u0000\u0000";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
