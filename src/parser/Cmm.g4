@@ -12,13 +12,13 @@ DIGIT:[0-9]
      ;
 
 fragment
-FLOATING_POINT:('.'DIGIT+)
-               | ([1-9]DIGIT*'.'DIGIT*)
+FLOATING_POINT: '.'DIGIT+
+                |INT_CONSTANT'.'DIGIT*
                 ;
 
 fragment
-EXPONENT:'E'('-'|'+')DIGIT+
-        |'e'DIGIT+
+EXPONENT:'E'('-'|'+')INT_CONSTANT+
+        |'e'INT_CONSTANT+
         ;
 
 ID: (LETTER|'_')(LETTER|DIGIT|'_')*
@@ -30,13 +30,13 @@ CHAR_CONSTANT: '\''.'\''
                 | '\'\\' INT_CONSTANT '\''
                 ;
 
-INT_CONSTANT:[1-9]DIGIT*
-            |'0'
-            ;
-
 REAL_CONSTANT: FLOATING_POINT EXPONENT?
                 |INT_CONSTANT EXPONENT
                 ;
+
+INT_CONSTANT:[1-9]DIGIT*
+            |'0'
+            ;
 
 ONE_LINE_COMMENT: '//' .*? ('\n'|'\r\n'|'\r'|EOF) -> skip
             ;
