@@ -8,10 +8,10 @@ expression: '(' expression ')'
           | expression '.' ID //field access
           | '(' type ')' expression //Cast
           | '-' expression //Unary minus
-          | '!' expression//Unary not
+          | '!' expression //Unary not
           | expression ('*'|'/'|'%') expression //arithmetic and modulus
           | expression ('+'|'-') expression //arithmetic
-          | expression ('>'|'>='|'<'|'<='|'!='|'==') expression// comparation
+          | expression ('>'|'>='|'<'|'<='|'!='|'==') expression // comparation
           | expression ('&&'|'||') expression // Logical
           | functionInvocation
           | INT_CONSTANT
@@ -29,11 +29,10 @@ statement: 'write' expressions ';' //write statement
          | functionInvocation ';' //function invocation
          ;
 
-type: builtInType
+type: type '[' INT_CONSTANT ']' //arrayType
+    | builtInType
     | voidType
-    | type '[' INT_CONSTANT ']' //arrayType
-    | 'struct' ID '{' variableDefinition* '}'//recordType ????????????????
-    | (builtInType|voidType) functionDefinition  //functionType ????????????????
+    | 'struct''{' variableDefinition* '}'//recordType
     ;
 
 definition: variableDefinition //variable definition
