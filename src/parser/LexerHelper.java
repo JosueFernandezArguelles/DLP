@@ -28,6 +28,7 @@ public class LexerHelper {
 		catch(NumberFormatException e) {
 			System.out.println(e);
 		}
+		assert false: "Unknown pattern of char constant";
 		return ' ';
 	}
 
