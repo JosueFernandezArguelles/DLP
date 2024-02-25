@@ -31,7 +31,6 @@ statement: 'write' expressions ';' //write statement
 
 type: type '[' INT_CONSTANT ']' //arrayType
     | builtInType
-    | voidType
     | 'struct''{' variableDefinition* '}'//recordType
     ;
 
@@ -75,7 +74,7 @@ body: statement
 functionInvocation : ID '(' arguments ')'
                    ;
 
-functionDefinition: voidType 'main' '('')' functionBody //????????
+functionDefinition: voidType 'main' '('')' functionBody
                   | (builtInType|voidType) ID '(' parameters ')' functionBody
                   ;
 
