@@ -42,8 +42,8 @@ variableDefinition: type ID (','ID)* ';' //variable definition
                   ;
 
 elseStatement: 'else' body
-    |
-    ;
+             |
+             ;
 
 builtInType: 'int'
            | 'double'
@@ -78,7 +78,7 @@ functionDefinition: voidType 'main' '('')' functionBody
                   | (builtInType|voidType) ID '(' parameters ')' functionBody
                   ;
 
-functionBody: '{' variableDefinition* statement* '}' //???????????????????
+functionBody: '{' variableDefinition* statement* '}'
             ;
 
 fragment
