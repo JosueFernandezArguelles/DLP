@@ -6,7 +6,7 @@ public class VariableDefinition extends AbstractDefinition implements Definition
 
     private int offset;
 
-    public VariableDefinition(String name, Type type, int line, int column, int offset) {
+    public VariableDefinition(int line, int column, Type type, String name, int offset) {
         super(name, type, line, column);
         this.offset = offset;
     }

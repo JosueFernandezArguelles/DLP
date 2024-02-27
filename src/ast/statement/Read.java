@@ -3,15 +3,17 @@ package ast.statement;
 import ast.AbstractASTNode;
 import ast.expression.Expression;
 
+import java.util.List;
+
 public class Read extends AbstractASTNode implements Statement {
 
-    private Expression expression;
-    public Read(int line, int column, Expression expression) {
+    private List<Expression> expressions;
+    public Read(int line, int column, List<Expression> expressions) {
         super(line, column);
-        this.expression = expression;
+        this.expressions = expressions;
     }
 
-    public Expression getExpression(){
-        return this.expression;
+    public List<Expression> getExpression(){
+        return this.expressions;
     }
 }

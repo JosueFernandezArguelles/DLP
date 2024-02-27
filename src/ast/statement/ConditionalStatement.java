@@ -12,8 +12,8 @@ public class ConditionalStatement extends AbstractASTNode implements Statement {
     private List<Statement> elseStatements;
     private Expression condition;
 
-    public ConditionalStatement(int line, int column, List<Statement> ifStatements, List<Statement> elseStatements,
-                                Expression condition) {
+    public ConditionalStatement(int line, int column, Expression condition, List<Statement> ifStatements,
+                                List<Statement> elseStatements) {
         super(line, column);
         this.ifStatements = new ArrayList<>(ifStatements);
         this.elseStatements = new ArrayList<>(elseStatements);
