@@ -8,6 +8,7 @@ grammar Cmm;
     import ast.type.*;
 }
 
+//TODO
 program: definition* voidType 'main' '('')' functionBody
        ;
 
@@ -60,6 +61,7 @@ statement returns [Statement ast]: W = 'write' e = expressions ';' //write state
                 {$ast = $f.ast;}
          ;
 
+//TODO
 type returns [Type ast]:
       t = type '[' I = INT_CONSTANT ']' //arrayType
             {$ast = new ArrayType($t.ast.getLine(), $t.ast.getColumn(), $t.ast, LexerHelper.lexemeToInt($I.text));}
@@ -69,18 +71,21 @@ type returns [Type ast]:
             {$ast = new RecordType($S.getLine(), $S.getCharPositionInLine()+1, $v.ast);}
     ;
 
-definition returns [Definition ast]:
+//TODO
+definition /*returns [Definition ast]*/:
             v = variableDefinition //variable definition
                 //{$ast = $v.ast;}
           | f = functionDefinition //function Definition
                 //{$ast = $f.ast; }
           ;
 
+//TODO
 variableDefinition /*returns [Field ast]*/: t = type ID (','ID)* ';' //variable definition
                   ;
 
-variableDefinitionList /*returns[ List<Field> ast = new ArrayList<Field>() ]*/:
-                       ( v = variableDefinition /*{$ast.add($v.ast);}*/ ) *
+//TODO
+variableDefinitionList returns[ List<Field> ast = new ArrayList<Field>() ]:
+                       ( variableDefinition /*{$ast.add($v.ast);}*/ ) *
                       ;
 
 elseStatement returns [List<Statement> ast]:
@@ -94,7 +99,8 @@ builtInType returns [Type ast]:
            | C = 'char' { $ast = new CharType($C.getLine(), $C.getCharPositionInLine()+1); }
            ;
 
-voidType: 'void' {}
+voidType returns [Type ast]:
+         V = 'void' {$ast = new VoidType($V.getLine(), $V.getCharPositionInLine()+1);}
         ;
 
 expressions returns [List<Expression> ast = new ArrayList<Expression>()]:
@@ -105,11 +111,14 @@ arguments returns [List<Expression> ast]: e = expressions {$ast = $e.ast;}
          |
          ;
 
-parameters: parameter  (','parameter)*
+parameters returns [List<VariableDefinition> ast = new ArrayList<VariableDefinition>()]:
+            p1 = parameter {$ast.add($p1.ast);}  (',' p2 = parameter {$ast.add($p2.ast);})*
           |
           ;
 
-parameter: builtInType ID
+//TODO: Offset
+parameter returns [VariableDefinition ast]:
+            b = builtInType ID {$ast = new VariableDefinition($b.ast.getLine(), $b.ast.getColumn(), $b.ast, $ID.text, 0);}
          ;
 
 body returns[List<Statement> ast = new ArrayList<Statement>()]:
@@ -124,10 +133,20 @@ functionInvocation returns [FunctionInvocation ast] : ID '(' args = arguments ')
                        new ArrayList<Expression>($args.ast)); }
                    ;
 
-functionDefinition: (builtInType|voidType) ID '(' parameters ')' functionBody
-                  ;
+//TODO
+functionDefinition returns [Definition ast]:
+            t = functionType ID '(' p = parameters ')' f = functionBody
+                /*{$ast = new FunctionDefinition( $t.ast.getLine(), $t.ast.getColumn(), $t.ast, $ID.text, $p.ast, $f.ast );}*/
+          ;
 
-functionBody: '{' variableDefinition* statement* '}'
+functionType returns [Type ast]:
+              b = builtInType {$ast = $b.ast;}
+            | v = voidType {$ast = $v.ast;}
+            ;
+
+//TODO
+functionBody /*returns [List<ASTNode> ast = new ArrayList<ASTNode>()]*/: //Also list of variableDefinition ?????????????????????????????????
+            '{' variableDefinition /*{$ast.add($v.ast)}*/* statement /*{$ast.add($s.ast)}*/* '}'
             ;
 
 fragment

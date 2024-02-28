@@ -9,20 +9,20 @@ import java.util.List;
 
 public class FunctionDefinition extends AbstractDefinition implements ASTNode {
 
-    private List<VariableDefinition> variables;
-    private List<Statement> statements;
-    public FunctionDefinition(String name, Type type, List<Statement> statements, List<VariableDefinition> variables,
-                              int line, int column) {
+    private List<VariableDefinition> parameters;
+    private List<Statement> body;
+    public FunctionDefinition(int line, int column, Type type, String name, List<VariableDefinition> parameters,
+                              List<Statement> body ) {
         super(name, type, line, column);
-        this.statements = new ArrayList<>(statements);
-        this.variables = new ArrayList<>(variables);
+        this.body = new ArrayList<>(body);
+        this.parameters = new ArrayList<>(parameters);
     }
 
-    public List<VariableDefinition> getVariables() {
-        return this.variables;
+    public List<VariableDefinition> getParameters() {
+        return this.parameters;
     }
 
-    public List<Statement> getStatements() {
-        return this.statements;
+    public List<Statement> getBody() {
+        return this.body;
     }
 }
