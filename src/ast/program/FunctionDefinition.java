@@ -7,7 +7,7 @@ import ast.type.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FunctionDefinition extends AbstractDefinition implements ASTNode {
+public class FunctionDefinition extends AbstractDefinition {
 
     private List<VariableDefinition> parameters;
     private List<Statement> body;

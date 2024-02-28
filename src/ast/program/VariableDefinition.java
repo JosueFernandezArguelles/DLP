@@ -2,7 +2,7 @@ package ast.program;
 
 import ast.type.Type;
 
-public class VariableDefinition extends AbstractDefinition implements Definition {
+public class VariableDefinition extends AbstractDefinition{
 
     private int offset;
 

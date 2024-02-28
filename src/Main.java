@@ -1,3 +1,4 @@
+import examples.ast.Program;
 import introspector.model.IntrospectorModel;
 import introspector.view.IntrospectorView;
 import parser.*;

@@ -9,7 +9,12 @@ grammar Cmm;
 }
 
 //TODO
-program: definition* voidType 'main' '('')' functionBody
+program ://returns [List<Definition> ast]:
+        (d = definition
+            //{$d.ast.forEach( def->$ast.add(def) );}
+        )*
+         v = voidType M = 'main' '('')' f = functionBody
+            //{ $ast.add( new FunctionDefinition( $v.ast.getLine(), $v.ast.getColumn(), $v.ast, $M.text, null, $f.ast) ); }
        ;
 
 expression returns [Expression ast]:
@@ -42,13 +47,13 @@ expression returns [Expression ast]:
           | CC = CHAR_CONSTANT
                 { $ast = new CharacterLiteral( $CC.getLine(), $CC.getCharPositionInLine()+1, LexerHelper.lexemeToChar($CC.text)) ; }
           | ID
-                {$ast = new Variable( $ID.getLine(), $ID.getCharPositionInLine()+1, $ID.text); } //We need to pass line and column. WHEN THEY ARE TERMINAL, WE HAVE ACCESS TO GETLINE()
+                {$ast = new Variable( $ID.getLine(), $ID.getCharPositionInLine()+1, $ID.text); }
           ;
 
 statement returns [Statement ast]: W = 'write' e = expressions ';' //write statement
-                { $ast = new Write( $W.getLine(), $W.getCharPositionInLine()+1, new ArrayList<Expression>( $e.ast )); }
+                //{ $ast = new Write( $W.getLine(), $W.getCharPositionInLine()+1, new ArrayList<Expression>( $e.ast )); }
          | R = 'read' e = expressions ';' //read statement
-                {$ast = new Read( $R.getLine(), $R.getCharPositionInLine()+1, new ArrayList<Expression>( $e.ast ) );}
+                //{$ast = new Read( $R.getLine(), $R.getCharPositionInLine()+1, new ArrayList<Expression>( $e.ast ) );}
          | e1 = expression '=' e2 = expression ';' // assignment
                 {$ast = new Assignment($e1.ast.getLine(), $e1.ast.getColumn(), $e1.ast, $e2.ast);}
          | W = 'while' '(' e1 = expression ')' b = body // while
@@ -61,32 +66,34 @@ statement returns [Statement ast]: W = 'write' e = expressions ';' //write state
                 {$ast = $f.ast;}
          ;
 
-//TODO
 type returns [Type ast]:
       t = type '[' I = INT_CONSTANT ']' //arrayType
             {$ast = new ArrayType($t.ast.getLine(), $t.ast.getColumn(), $t.ast, LexerHelper.lexemeToInt($I.text));}
     | b = builtInType
             {$ast = $b.ast;}
-    | S = 'struct''{' v = variableDefinitionList '}'//recordType
-            {$ast = new RecordType($S.getLine(), $S.getCharPositionInLine()+1, $v.ast);}
+    | S = 'struct''{' f = fields '}'//recordType
+            {$ast = new RecordType($S.getLine(), $S.getCharPositionInLine()+1, new ArrayList<Field>($f.ast));}
     ;
 
-//TODO
-definition /*returns [Definition ast]*/:
+fields returns [List<Field> ast = new ArrayList<Field>()]:
+    (v = variableDefinition
+     {$v.ast.forEach( var -> $ast.add(new Field( var.getLine(), var.getColumn(), var.getType(), var.getName() )) );}
+    )*
+    ;
+
+definition returns [List<Definition> ast = new ArrayList<Definition>()]:
             v = variableDefinition //variable definition
-                //{$ast = $v.ast;}
+                { $v.ast.forEach( var -> $ast.add(var) );}
           | f = functionDefinition //function Definition
-                //{$ast = $f.ast; }
+                {$ast.add($f.ast);}
           ;
 
-//TODO
-variableDefinition /*returns [Field ast]*/: t = type ID (','ID)* ';' //variable definition
-                  ;
-
-//TODO
-variableDefinitionList returns[ List<Field> ast = new ArrayList<Field>() ]:
-                       ( variableDefinition /*{$ast.add($v.ast);}*/ ) *
-                      ;
+//Todo: Offset
+variableDefinition returns [List<Definition> ast = new ArrayList<Definition>()]:
+            t = type ID1 = ID
+                {$ast.add(new VariableDefinition($t.ast.getLine(), $t.ast.getColumn(), $t.ast, $ID1.text, 0));}
+             (','ID2 = ID {$ast.add(new VariableDefinition($t.ast.getLine(), $t.ast.getColumn(), $t.ast, $ID2.text, 0));})* ';'
+            ;
 
 elseStatement returns [List<Statement> ast]:
               'else' body {$ast = $body.ast;}
@@ -107,7 +114,8 @@ expressions returns [List<Expression> ast = new ArrayList<Expression>()]:
             e1 = expression {$ast.add($e1.ast);} (',' e2 = expression {$ast.add($e2.ast);})*
            ;
 
-arguments returns [List<Expression> ast]: e = expressions {$ast = $e.ast;}
+arguments returns [List<Expression> ast]:
+        e = expressions {$ast = $e.ast;}
          |
          ;
 
@@ -118,25 +126,27 @@ parameters returns [List<VariableDefinition> ast = new ArrayList<VariableDefinit
 
 //TODO: Offset
 parameter returns [VariableDefinition ast]:
-            b = builtInType ID {$ast = new VariableDefinition($b.ast.getLine(), $b.ast.getColumn(), $b.ast, $ID.text, 0);}
+            b = builtInType ID
+                {$ast = new VariableDefinition($b.ast.getLine(), $b.ast.getColumn(), $b.ast, $ID.text, 0);}
          ;
 
 body returns[List<Statement> ast = new ArrayList<Statement>()]:
        s1 = statement {$ast.add($s1.ast);}
-    | '{' (s2 = statement {$ast.add($s2.ast);} )* '}'
+    | '{' (s2 = statement {$ast.add($s2.ast);}
+           )* '}'
     ;
 
-functionInvocation returns [FunctionInvocation ast] : ID '(' args = arguments ')'
+functionInvocation returns [FunctionInvocation ast] :
+                ID '(' args = arguments ')'
                     { $ast = new FunctionInvocation( $ID.getLine(),
                        $ID.getCharPositionInLine()+1,
                        new Variable($ID.getLine(),$ID.getCharPositionInLine()+1, $ID.text),
                        new ArrayList<Expression>($args.ast)); }
                    ;
 
-//TODO
 functionDefinition returns [Definition ast]:
             t = functionType ID '(' p = parameters ')' f = functionBody
-                /*{$ast = new FunctionDefinition( $t.ast.getLine(), $t.ast.getColumn(), $t.ast, $ID.text, $p.ast, $f.ast );}*/
+                {$ast = new FunctionDefinition( $t.ast.getLine(), $t.ast.getColumn(), $t.ast, $ID.text, $p.ast, $f.sts );}
           ;
 
 functionType returns [Type ast]:
@@ -144,9 +154,10 @@ functionType returns [Type ast]:
             | v = voidType {$ast = $v.ast;}
             ;
 
-//TODO
-functionBody /*returns [List<ASTNode> ast = new ArrayList<ASTNode>()]*/: //Also list of variableDefinition ?????????????????????????????????
-            '{' variableDefinition /*{$ast.add($v.ast)}*/* statement /*{$ast.add($s.ast)}*/* '}'
+functionBody returns [List<VariableDefinition> vars = new ArrayList<VariableDefinition>(),
+                        List<Statement> sts = new ArrayList<Statement>()]: //Also list of variableDefinition ?????????????????????????????????
+            '{' (v = variableDefinition { $v.ast.forEach( var -> $vars.add((VariableDefinition)var) ); })*
+                (s = statement {$sts.add($s.ast);})* '}'
             ;
 
 fragment
