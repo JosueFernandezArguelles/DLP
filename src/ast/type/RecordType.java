@@ -16,4 +16,9 @@ public class RecordType extends AbstractASTNode implements Type{
     public List<Field> getFields() {
         return this.fields;
     }
+
+    @Override
+    public String toString() {
+        return "RecordType{" +  fields.toString() + '}';
+    }
 }

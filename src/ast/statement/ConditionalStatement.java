@@ -31,4 +31,9 @@ public class ConditionalStatement extends AbstractASTNode implements Statement {
     public Expression getCondition() {
         return this.condition;
     }
+
+    @Override
+    public String toString() {
+        return "if(" + condition.toString() + ")" + ifStatements.toString() + "else" + elseStatements.toString();
+    }
 }

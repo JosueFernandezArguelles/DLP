@@ -13,4 +13,9 @@ public class Variable extends AbstractASTNode implements Expression{
     public String getName(){
         return this.name;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

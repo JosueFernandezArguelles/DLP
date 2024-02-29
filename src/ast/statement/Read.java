@@ -16,4 +16,9 @@ public class Read extends AbstractASTNode implements Statement {
     public Expression getExpression(){
         return this.expression;
     }
+
+    @Override
+    public String toString() {
+        return "read" + expression.toString();
+    }
 }

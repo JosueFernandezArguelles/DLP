@@ -29,6 +29,6 @@ public class Arithmetic extends AbstractASTNode implements Expression{
 
     @Override
     public String toString() {
-        return "Arithmetic{" + left + operator + right + "}";
+        return left.toString() + operator + right.toString();
     }
 }

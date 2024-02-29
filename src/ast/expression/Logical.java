@@ -26,4 +26,9 @@ public class Logical extends AbstractASTNode implements Expression{
     public Expression getRight() {
         return this.right;
     }
+
+    @Override
+    public String toString() {
+        return left.toString() + operator + right.toString();
+    }
 }

@@ -16,4 +16,9 @@ public class Write extends AbstractASTNode implements Statement {
     public Expression getExpressions(){
         return this.expression;
     }
+
+    @Override
+    public String toString() {
+        return "write" + expression.toString();
+    }
 }

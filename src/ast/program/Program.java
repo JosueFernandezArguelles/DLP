@@ -17,4 +17,9 @@ public class Program extends AbstractASTNode implements ASTNode {
     public List<Definition> getDefinitions() {
         return this.definitions;
     }
+
+    @Override
+    public String toString() {
+        return definitions.toString();
+    }
 }

@@ -24,4 +24,9 @@ public class While extends AbstractASTNode implements Statement {
     public List<Statement> getBody() {
         return body;
     }
+
+    @Override
+    public String toString() {
+        return "while(" + condition + ")" + body.toString();
+    }
 }

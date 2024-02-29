@@ -11,4 +11,9 @@ public class Indexing extends AbstractASTNode implements Expression{
         this.variable = variable;
         this.index = index;
     }
+
+    @Override
+    public String toString() {
+        return variable.toString() + "[" + index.toString() + "]";
+    }
 }

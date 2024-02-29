@@ -24,8 +24,10 @@ mainFunction returns [FunctionDefinition ast]:
         v = voidType M = 'main' '('')' f = functionBody
             { $ast = new FunctionDefinition( $v.ast.getLine(), $v.ast.getColumn(),
                                                 new FunctionType(
-                                                    $v.ast.getLine(), $v.ast.getColumn(), $v.ast, new ArrayList<VariableDefinition>() ),
-                                                 $M.text, $f.vars, $f.sts);
+                                                        $v.ast.getLine(), $v.ast.getColumn(),
+                                                        $v.ast, new ArrayList<VariableDefinition>()
+                                                        ),
+                                                $M.text, $f.vars, $f.sts);
             }
     ;
 

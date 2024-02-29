@@ -20,4 +20,9 @@ public class Assignment extends AbstractASTNode implements Statement {
     public Expression getValue() {
         return this.value;
     }
+
+    @Override
+    public String toString() {
+        return target + "=" + value;
+    }
 }

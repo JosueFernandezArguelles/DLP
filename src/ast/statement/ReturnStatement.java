@@ -14,4 +14,9 @@ public class ReturnStatement extends AbstractASTNode implements Statement {
     public Expression getExpression(){
         return this.expression;
     }
+
+    @Override
+    public String toString() {
+        return "return" + expression.toString();
+    }
 }

@@ -26,4 +26,9 @@ public class FunctionDefinition extends AbstractDefinition {
     public List<Statement> getStatements() {
         return this.statements;
     }
+
+    @Override
+    public String toString() {
+        return getType().toString() + " " + getName() + variables.toString() + " " + statements.toString() ;
+    }
 }
