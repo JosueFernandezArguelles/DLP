@@ -160,8 +160,8 @@ functionInvocation returns [FunctionInvocation ast] :
                    ;
 
 functionDefinition returns [FunctionDefinition ast]:
-            t = functionType f = functionBody
-                {$ast = new FunctionDefinition( $t.ast.getLine(), $t.ast.getColumn(), $t.ast, $t.name, $f.vars, $f.sts );}
+            t = functionType b = functionBody
+                {$ast = new FunctionDefinition( $t.ast.getLine(), $t.ast.getColumn(), $t.ast, $t.name, $b.vars, $b.sts );}
           ;
 
 functionType returns [FunctionType ast, String name]:

@@ -221,8 +221,10 @@ public class CmmParser extends Parser {
 			((MainFunctionContext)_localctx).f = functionBody();
 			 ((MainFunctionContext)_localctx).ast =  new FunctionDefinition( ((MainFunctionContext)_localctx).v.ast.getLine(), ((MainFunctionContext)_localctx).v.ast.getColumn(),
 			                                                new FunctionType(
-			                                                    ((MainFunctionContext)_localctx).v.ast.getLine(), ((MainFunctionContext)_localctx).v.ast.getColumn(), ((MainFunctionContext)_localctx).v.ast, new ArrayList<VariableDefinition>() ),
-			                                                 (((MainFunctionContext)_localctx).M!=null?((MainFunctionContext)_localctx).M.getText():null), ((MainFunctionContext)_localctx).f.vars, ((MainFunctionContext)_localctx).f.sts);
+			                                                        ((MainFunctionContext)_localctx).v.ast.getLine(), ((MainFunctionContext)_localctx).v.ast.getColumn(),
+			                                                        ((MainFunctionContext)_localctx).v.ast, new ArrayList<VariableDefinition>()
+			                                                        ),
+			                                                (((MainFunctionContext)_localctx).M!=null?((MainFunctionContext)_localctx).M.getText():null), ((MainFunctionContext)_localctx).f.vars, ((MainFunctionContext)_localctx).f.sts);
 			            
 			}
 		}
@@ -1442,7 +1444,7 @@ public class CmmParser extends Parser {
 	public static class FunctionDefinitionContext extends ParserRuleContext {
 		public FunctionDefinition ast;
 		public FunctionTypeContext t;
-		public FunctionBodyContext f;
+		public FunctionBodyContext b;
 		public FunctionTypeContext functionType() {
 			return getRuleContext(FunctionTypeContext.class,0);
 		}
@@ -1464,8 +1466,8 @@ public class CmmParser extends Parser {
 			setState(296);
 			((FunctionDefinitionContext)_localctx).t = functionType();
 			setState(297);
-			((FunctionDefinitionContext)_localctx).f = functionBody();
-			((FunctionDefinitionContext)_localctx).ast =  new FunctionDefinition( ((FunctionDefinitionContext)_localctx).t.ast.getLine(), ((FunctionDefinitionContext)_localctx).t.ast.getColumn(), ((FunctionDefinitionContext)_localctx).t.ast, ((FunctionDefinitionContext)_localctx).t.name, ((FunctionDefinitionContext)_localctx).f.vars, ((FunctionDefinitionContext)_localctx).f.sts );
+			((FunctionDefinitionContext)_localctx).b = functionBody();
+			((FunctionDefinitionContext)_localctx).ast =  new FunctionDefinition( ((FunctionDefinitionContext)_localctx).t.ast.getLine(), ((FunctionDefinitionContext)_localctx).t.ast.getColumn(), ((FunctionDefinitionContext)_localctx).t.ast, ((FunctionDefinitionContext)_localctx).t.name, ((FunctionDefinitionContext)_localctx).b.vars, ((FunctionDefinitionContext)_localctx).b.sts );
 			}
 		}
 		catch (RecognitionException re) {
