@@ -13,4 +13,9 @@ public class DoubleLiteral extends AbstractASTNode implements Expression{
     public double getValue(){
         return this.value;
     }
+
+    @Override
+    public String toString() {
+        return "DoubleLiteral{" + value + '}';
+    }
 }

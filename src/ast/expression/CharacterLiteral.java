@@ -13,4 +13,9 @@ public class CharacterLiteral extends AbstractASTNode implements Expression{
     public char getValue(){
         return this.value;
     }
+
+    @Override
+    public String toString() {
+        return "CharacterLiteral{" + value + '}';
+    }
 }

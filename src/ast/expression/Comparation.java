@@ -26,4 +26,9 @@ public class Comparation extends AbstractASTNode implements Expression{
     public Expression getRight() {
         return this.right;
     }
+
+    @Override
+    public String toString() {
+        return "Comparation{" + left + operator + right + '}';
+    }
 }

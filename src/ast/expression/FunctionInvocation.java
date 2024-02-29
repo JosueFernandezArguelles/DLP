@@ -23,4 +23,9 @@ public class FunctionInvocation extends AbstractASTNode implements Expression, S
     public List<Expression> getExpressionList() {
         return this.expressionList;
     }
+
+    @Override
+    public String toString() {
+        return "FunctionInvocation{" + variable + "(" + expressionList + ")" + '}';
+    }
 }
