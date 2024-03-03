@@ -763,7 +763,7 @@ public class CmmParser extends Parser {
 					((TypeContext)_localctx).I = match(INT_CONSTANT);
 					setState(186);
 					match(T__4);
-					((TypeContext)_localctx).ast =  new ArrayType(((TypeContext)_localctx).t.ast.getLine(), ((TypeContext)_localctx).t.ast.getColumn(), ((TypeContext)_localctx).t.ast, LexerHelper.lexemeToInt((((TypeContext)_localctx).I!=null?((TypeContext)_localctx).I.getText():null)));
+					((TypeContext)_localctx).ast =  TypeFactory.createArray( ((TypeContext)_localctx).t.ast.getLine(), ((TypeContext)_localctx).t.ast.getColumn(), LexerHelper.lexemeToInt( (((TypeContext)_localctx).I!=null?((TypeContext)_localctx).I.getText():null) ), ((TypeContext)_localctx).t.ast ); 
 					}
 					} 
 				}

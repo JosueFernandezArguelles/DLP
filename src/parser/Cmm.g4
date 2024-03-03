@@ -8,6 +8,8 @@ grammar Cmm;
     import ast.type.*;
 }
 
+//SYNTAX
+
 program returns [Program ast]
         locals[List<Definition> list = new ArrayList<Definition>()]:
         (d = definition
@@ -81,11 +83,9 @@ statement returns [List<Statement> ast = new ArrayList<Statement>()]:
                 {$ast.add( $f.ast );}
          ;
 
-//Todo
 type returns [Type ast]:
-        //locals [ LinkedList<Type> = new LinkedList() ]:
-      t = type '[' I = INT_CONSTANT ']' //arrayType USE A FACTORY: int[10][20] the tree should be 10, 20, int  (adding at the end of a linked list)
-            {$ast = new ArrayType($t.ast.getLine(), $t.ast.getColumn(), $t.ast, LexerHelper.lexemeToInt($I.text));}
+      t = type '[' I = INT_CONSTANT ']' //Array Type
+            {$ast = TypeFactory.createArray( $t.ast.getLine(), $t.ast.getColumn(), LexerHelper.lexemeToInt( $I.text ), $t.ast ); }
     | b = builtInType
             {$ast = $b.ast;}
     | S = 'struct''{' f = fields '}'//recordType
@@ -181,6 +181,8 @@ functionBody returns [List<VariableDefinition> vars = new ArrayList<VariableDefi
             '{' (v = variableDefinitions { $v.ast.forEach( var -> $vars.add((VariableDefinition)var) ); })*
                 (s = statement { $s.ast.forEach( st -> $sts.add(st));})* '}'
             ;
+
+//LEXICAL
 
 fragment
 LETTER:[a-zA-Z]

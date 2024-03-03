@@ -2,6 +2,8 @@
 // * Variable and function definitions
 int i, j, n;
 
+int[2][4][6] a;
+
 // * Empty function
 void p() {}
 

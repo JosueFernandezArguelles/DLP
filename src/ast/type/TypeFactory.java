@@ -1,16 +1,13 @@
 package ast.type;
 
+import java.lang.reflect.Array;
 import java.util.LinkedList;
 
 public class TypeFactory {
 
-    public static LinkedList<Type> list = new LinkedList<>();
-
-    public static ArrayType getArray(){
-        return null;
-    }
-
-    public static void add(Type t){
-        list.addLast(t);
+    public static ArrayType createArray(int line, int column, int size, Type previousType){
+        return previousType instanceof ArrayType prev ?
+                new ArrayType( line, column, createArray( line, column, size, prev.getType()), prev.getSize() ) :
+                new ArrayType( line, column, previousType, size );
     }
 }
