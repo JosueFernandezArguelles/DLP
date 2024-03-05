@@ -25,4 +25,6 @@ public class Field extends AbstractASTNode {
     public String toString() {
         return type.toString() + name;
     }
+
+
 }

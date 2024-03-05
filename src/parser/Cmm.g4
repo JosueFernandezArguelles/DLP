@@ -92,9 +92,19 @@ type returns [Type ast]:
             {$ast = new RecordType($S.getLine(), $S.getCharPositionInLine()+1, $f.ast);}
     ;
 
-fields returns [List<Field> ast = new ArrayList<Field>()]:
+fields returns [List<Field> ast = new ArrayList<Field>()]
+        locals [Field field]:
     (v = variableDefinitions
-        {$v.ast.forEach( var -> $ast.add(new Field( var.getLine(), var.getColumn(), var.getType(), var.getName() )) );}
+        {$v.ast.forEach( var -> {field = new Field( var.getLine(), var.getColumn(), var.getType(), var.getName() ))
+                                  if(){
+
+                                  }}
+         for(Field f : $ast){
+                                    if( f.getName.equals(var.getName()) ){
+                                        new ErrorType( var.getLine(), var.getColumn(), "Repeated field" );
+                                    }
+                                 }
+                            $ast.add(new Field( var.getLine(), var.getColumn(), var.getType(), var.getName() )) );}
     )*
     ;
 
