@@ -22,6 +22,6 @@ public class ArrayType extends AbstractASTNode implements Type{
 
     @Override
     public String toString() {
-        return type.toString() + "[" + size + "]";
+        return type.toString() + " [" + size + "]";
     }
 }

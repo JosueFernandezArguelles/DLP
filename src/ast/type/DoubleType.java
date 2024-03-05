@@ -9,6 +9,6 @@ public class DoubleType extends AbstractASTNode implements Type{
 
     @Override
     public String toString() {
-        return "double";
+        return "double ";
     }
 }

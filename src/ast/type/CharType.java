@@ -9,6 +9,6 @@ public class CharType extends AbstractASTNode implements Type{
 
     @Override
     public String toString() {
-        return "char";
+        return "char ";
     }
 }

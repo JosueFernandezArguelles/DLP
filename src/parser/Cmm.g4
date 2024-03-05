@@ -6,6 +6,7 @@ grammar Cmm;
     import ast.program.*;
     import ast.statement.*;
     import ast.type.*;
+    import ast.errorhandler.*;
 }
 
 //SYNTAX
@@ -95,15 +96,7 @@ type returns [Type ast]:
 fields returns [List<Field> ast = new ArrayList<Field>()]
         locals [Field field]:
     (v = variableDefinitions
-        {$v.ast.forEach( var -> {$field = new Field( var.getLine(), var.getColumn(), var.getType(), var.getName() );
-                                  if($ast.contains($field)){
-                                     new ErrorType( var.getLine(), var.getColumn(), "Repeated field" );
-                                  } else{
-                                    $ast.add($field);
-                                  }
-                                 }
-                         );
-        }
+        {$v.ast.forEach(var -> {FieldCheck.check($ast, new Field( var.getLine(), var.getColumn(), var.getType(), var.getName()));});}
     )*
     ;
 

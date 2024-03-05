@@ -6,6 +6,7 @@ package parser;
     import ast.program.*;
     import ast.statement.*;
     import ast.type.*;
+    import ast.errorhandler.*;
 
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -816,15 +817,7 @@ public class CmmParser extends Parser {
 				{
 				setState(193);
 				((FieldsContext)_localctx).v = variableDefinitions();
-				((FieldsContext)_localctx).v.ast.forEach( var -> {((FieldsContext)_localctx).field =  new Field( var.getLine(), var.getColumn(), var.getType(), var.getName() );
-				                                  if(_localctx.ast.contains(_localctx.field)){
-				                                     new ErrorType( var.getLine(), var.getColumn(), "Repeated field" );
-				                                  } else{
-				                                    _localctx.ast.add(_localctx.field);
-				                                  }
-				                                 }
-				                         );
-				        
+				((FieldsContext)_localctx).v.ast.forEach(var -> {FieldCheck.check(_localctx.ast, new Field( var.getLine(), var.getColumn(), var.getType(), var.getName()));});
 				}
 				}
 				setState(200);

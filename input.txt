@@ -1,7 +1,7 @@
 struct {
 	int a, b;
 	char c, d;
-	double[10] e, a;
+	double[10] e;
 } record;
 
 void main() {

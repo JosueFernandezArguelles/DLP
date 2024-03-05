@@ -9,6 +9,6 @@ public class IntegerType extends AbstractASTNode implements Type{
 
     @Override
     public String toString() {
-        return "int";
+        return "int ";
     }
 }
