@@ -24,8 +24,8 @@ public class Main {
 		CmmParser parser = new CmmParser(tokens);
 		Program ast = parser.program().ast;
 
-		if(ErrorHandler.anyErrors()){
-			ErrorHandler.showErrors(System.err);
+		if(ErrorHandler.getInstance().anyErrors()){
+			ErrorHandler.getInstance().showErrors(System.err);
 		} else{
 			IntrospectorModel model=new IntrospectorModel("Program", ast);
 			new IntrospectorView("Introspector", model);
