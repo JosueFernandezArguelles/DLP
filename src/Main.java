@@ -1,4 +1,5 @@
 
+import ast.errorhandler.ErrorHandler;
 import ast.program.Program;
 import introspector.model.IntrospectorModel;
 import introspector.view.IntrospectorView;
@@ -22,9 +23,12 @@ public class Main {
 		CommonTokenStream tokens = new CommonTokenStream(lexer); 
 		CmmParser parser = new CmmParser(tokens);
 		Program ast = parser.program().ast;
-		IntrospectorModel model=new IntrospectorModel("Program", ast);
-		new IntrospectorView("Introspector", model);
-	}
-	
 
+		if(ErrorHandler.anyErrors()){
+			ErrorHandler.showErrors(System.err);
+		} else{
+			IntrospectorModel model=new IntrospectorModel("Program", ast);
+			new IntrospectorView("Introspector", model);
+		}
+	}
 }
