@@ -9,7 +9,7 @@ import java.util.List;
 public class ErrorHandler {
 
     private static List<ErrorType> errors = new ArrayList<ErrorType>();
-    private static ErrorHandler errorHandler = new ErrorHandler();
+    private static ErrorHandler instance = new ErrorHandler();
 
     private ErrorHandler(){}
 
@@ -28,6 +28,6 @@ public class ErrorHandler {
     }
 
     public static ErrorHandler getInstance(){
-        return errorHandler;
+        return instance;
     }
 }
