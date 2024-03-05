@@ -95,16 +95,15 @@ type returns [Type ast]:
 fields returns [List<Field> ast = new ArrayList<Field>()]
         locals [Field field]:
     (v = variableDefinitions
-        {$v.ast.forEach( var -> {field = new Field( var.getLine(), var.getColumn(), var.getType(), var.getName() ))
-                                  if(){
-
-                                  }}
-         for(Field f : $ast){
-                                    if( f.getName.equals(var.getName()) ){
-                                        new ErrorType( var.getLine(), var.getColumn(), "Repeated field" );
-                                    }
+        {$v.ast.forEach( var -> {$field = new Field( var.getLine(), var.getColumn(), var.getType(), var.getName() );
+                                  if($ast.contains($field)){
+                                     new ErrorType( var.getLine(), var.getColumn(), "Repeated field" );
+                                  } else{
+                                    $ast.add($field);
+                                  }
                                  }
-                            $ast.add(new Field( var.getLine(), var.getColumn(), var.getType(), var.getName() )) );}
+                         );
+        }
     )*
     ;
 

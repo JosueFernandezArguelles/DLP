@@ -787,6 +787,7 @@ public class CmmParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class FieldsContext extends ParserRuleContext {
 		public List<Field> ast = new ArrayList<Field>();
+		public Field field;
 		public VariableDefinitionsContext v;
 		public List<VariableDefinitionsContext> variableDefinitions() {
 			return getRuleContexts(VariableDefinitionsContext.class);
@@ -815,7 +816,15 @@ public class CmmParser extends Parser {
 				{
 				setState(193);
 				((FieldsContext)_localctx).v = variableDefinitions();
-				((FieldsContext)_localctx).v.ast.forEach( var -> _localctx.ast.add(new Field( var.getLine(), var.getColumn(), var.getType(), var.getName() )) );
+				((FieldsContext)_localctx).v.ast.forEach( var -> {((FieldsContext)_localctx).field =  new Field( var.getLine(), var.getColumn(), var.getType(), var.getName() );
+				                                  if(_localctx.ast.contains(_localctx.field)){
+				                                     new ErrorType( var.getLine(), var.getColumn(), "Repeated field" );
+				                                  } else{
+				                                    _localctx.ast.add(_localctx.field);
+				                                  }
+				                                 }
+				                         );
+				        
 				}
 				}
 				setState(200);

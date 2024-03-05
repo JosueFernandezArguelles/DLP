@@ -2,6 +2,8 @@ package ast.type;
 
 import ast.AbstractASTNode;
 
+import java.util.Objects;
+
 public class Field extends AbstractASTNode {
 
     private Type type;
@@ -26,5 +28,12 @@ public class Field extends AbstractASTNode {
         return type.toString() + name;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Field field = (Field) o;
+        return Objects.equals(name, field.name);
+    }
 
 }
