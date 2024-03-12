@@ -3,7 +3,7 @@ package ast.expression;
 import ast.AbstractASTNode;
 import visitor.Visitor;
 
-public class Modulus extends AbstractExpression implements Expression{
+public class Modulus extends AbstractExpression{
 
     private Expression left;
     private Expression right;

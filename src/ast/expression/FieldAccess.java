@@ -3,7 +3,7 @@ package ast.expression;
 import ast.AbstractASTNode;
 import visitor.Visitor;
 
-public class FieldAccess extends AbstractExpression implements Expression{
+public class FieldAccess extends AbstractExpression{
     private String fieldName;
     private Expression expression;
     public FieldAccess(int line, int column, Expression expression, String fieldName) {

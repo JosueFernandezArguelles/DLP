@@ -3,7 +3,7 @@ package ast.expression;
 import ast.AbstractASTNode;
 import visitor.Visitor;
 
-public class Variable extends AbstractExpression implements Expression{
+public class Variable extends AbstractExpression{
 
     private String name;
     public Variable(int line, int column, String name) {

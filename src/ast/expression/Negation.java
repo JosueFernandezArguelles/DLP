@@ -3,7 +3,7 @@ package ast.expression;
 import ast.AbstractASTNode;
 import visitor.Visitor;
 
-public class Negation extends AbstractExpression implements Expression{
+public class Negation extends AbstractExpression{
 
     private Expression expression;
 

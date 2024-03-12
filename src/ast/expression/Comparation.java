@@ -3,7 +3,7 @@ package ast.expression;
 import ast.AbstractASTNode;
 import visitor.Visitor;
 
-public class Comparation extends AbstractExpression implements Expression{
+public class Comparation extends AbstractExpression{
 
     private String operator;
     private Expression left;
