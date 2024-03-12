@@ -2,7 +2,7 @@ package ast.expression;
 
 import ast.AbstractASTNode;
 
-public class Negation extends AbstractASTNode implements Expression{
+public class Negation extends AbstractExpression implements Expression{
 
     private Expression expression;
 

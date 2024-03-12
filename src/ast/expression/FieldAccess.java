@@ -2,7 +2,7 @@ package ast.expression;
 
 import ast.AbstractASTNode;
 
-public class FieldAccess extends AbstractASTNode implements Expression{
+public class FieldAccess extends AbstractExpression implements Expression{
     private String fieldName;
     private Expression expression;
     public FieldAccess(int line, int column, Expression expression, String fieldName) {

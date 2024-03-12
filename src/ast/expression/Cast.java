@@ -3,7 +3,7 @@ package ast.expression;
 import ast.AbstractASTNode;
 import ast.type.Type;
 
-public class Cast extends AbstractASTNode implements Expression{
+public class Cast extends AbstractExpression implements Expression{
 
     private Expression expression;
     private Type type;

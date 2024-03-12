@@ -2,7 +2,7 @@ package ast.expression;
 
 import ast.AbstractASTNode;
 
-public class IntLiteral extends AbstractASTNode implements Expression{
+public class IntLiteral extends AbstractExpression implements Expression{
 
     private int value;
     public IntLiteral(int line, int column, int value) {
