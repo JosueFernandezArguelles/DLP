@@ -4,6 +4,7 @@ import ast.ASTNode;
 import ast.statement.Statement;
 import ast.type.FunctionType;
 import ast.type.Type;
+import visitor.Visitor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,5 +31,10 @@ public class FunctionDefinition extends AbstractDefinition {
     @Override
     public String toString() {
         return getType().toString() + " " + getName() + "(" + variables.toString() + "){ " + statements.toString() + "}";
+    }
+
+    @Override
+    public <TP, TR> TR accept(Visitor<TP, TR> v, TP param) {
+        return v.visit(this, param);
     }
 }

@@ -1,6 +1,8 @@
 package ast;
 
-public class AbstractASTNode implements ASTNode {
+import visitor.Visitor;
+
+public abstract class AbstractASTNode implements ASTNode {
 
     private int line;
     private int column;

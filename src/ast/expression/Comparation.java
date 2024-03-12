@@ -1,6 +1,7 @@
 package ast.expression;
 
 import ast.AbstractASTNode;
+import visitor.Visitor;
 
 public class Comparation extends AbstractExpression implements Expression{
 
@@ -30,5 +31,10 @@ public class Comparation extends AbstractExpression implements Expression{
     @Override
     public String toString() {
         return left.toString() + operator + right.toString();
+    }
+
+    @Override
+    public <TP, TR> TR accept(Visitor<TP, TR> v, TP param) {
+        return v.visit(this, param);
     }
 }

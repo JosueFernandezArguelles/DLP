@@ -3,7 +3,7 @@ package ast.expression;
 import ast.AbstractASTNode;
 import examples.ast.ASTNode;
 
-public class AbstractExpression extends AbstractASTNode implements Expression{
+public abstract class AbstractExpression extends AbstractASTNode implements Expression{
 
     private boolean lValue;
     public AbstractExpression(int line, int column) {

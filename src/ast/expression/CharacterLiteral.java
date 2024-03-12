@@ -1,6 +1,7 @@
 package ast.expression;
 
 import ast.AbstractASTNode;
+import visitor.Visitor;
 
 public class CharacterLiteral extends AbstractExpression implements Expression{
 
@@ -17,5 +18,10 @@ public class CharacterLiteral extends AbstractExpression implements Expression{
     @Override
     public String toString() {
         return "CharacterLiteral{" + value + '}';
+    }
+
+    @Override
+    public <TP, TR> TR accept(Visitor<TP, TR> v, TP param) {
+        return v.visit(this, param);
     }
 }

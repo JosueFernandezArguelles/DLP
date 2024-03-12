@@ -2,6 +2,7 @@ package ast.statement;
 
 import ast.AbstractASTNode;
 import ast.expression.Expression;
+import visitor.Visitor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,5 +36,10 @@ public class ConditionalStatement extends AbstractASTNode implements Statement {
     @Override
     public String toString() {
         return "if(" + condition.toString() + ")" + ifStatements.toString() + "else" + elseStatements.toString();
+    }
+
+    @Override
+    public <TP, TR> TR accept(Visitor<TP, TR> v, TP param) {
+        return v.visit(this, param);
     }
 }

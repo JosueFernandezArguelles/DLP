@@ -2,6 +2,7 @@ package ast.type;
 
 import ast.AbstractASTNode;
 import ast.program.VariableDefinition;
+import visitor.Visitor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,5 +28,10 @@ public class FunctionType extends AbstractASTNode implements Type {
     @Override
     public String toString() {
         return  returnType.toString() + parameters.toString();
+    }
+
+    @Override
+    public <TP, TR> TR accept(Visitor<TP, TR> v, TP param) {
+        return v.visit(this, param);
     }
 }

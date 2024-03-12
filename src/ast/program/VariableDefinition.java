@@ -1,6 +1,7 @@
 package ast.program;
 
 import ast.type.Type;
+import visitor.Visitor;
 
 public class VariableDefinition extends AbstractDefinition{
 
@@ -13,5 +14,10 @@ public class VariableDefinition extends AbstractDefinition{
 
     public int getOffset(){
         return this.offset;
+    }
+
+    @Override
+    public <TP, TR> TR accept(Visitor<TP, TR> v, TP param) {
+        return v.visit(this, param);
     }
 }
