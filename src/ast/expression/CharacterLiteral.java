@@ -17,7 +17,7 @@ public class CharacterLiteral extends AbstractExpression{
 
     @Override
     public String toString() {
-        return "CharacterLiteral{" + value + '}';
+        return " '" + value + "'";
     }
 
     @Override

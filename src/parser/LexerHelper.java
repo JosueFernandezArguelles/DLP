@@ -23,6 +23,9 @@ public class LexerHelper {
 					return (char) Integer.parseInt( str.substring(1, str.length() - 1) );
 				}
 			}
+			if( str.length() > 1 ){
+				return str.charAt(1);
+			}
 			return str.charAt(0);
 		}
 		catch(NumberFormatException e) {
