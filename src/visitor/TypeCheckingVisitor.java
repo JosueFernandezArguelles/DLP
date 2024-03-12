@@ -112,51 +112,67 @@ public class TypeCheckingVisitor implements Visitor<Void, Void>{
 
     @Override
     public Void visit(Program p, Void param) {
+        p.getDefinitions().forEach(d -> d.accept(this, param));
         return null;
     }
 
     @Override
     public Void visit(FunctionDefinition f, Void param) {
+        f.getType().accept(this, param);
+        f.getVariables().forEach(v -> v.accept(this, param));
+        f.getStatements().forEach(s -> s.accept(this, param));
         return null;
     }
 
     @Override
     public Void visit(VariableDefinition v, Void param) {
+        v.getType().accept(this, param);
         return null;
     }
 
     @Override
     public Void visit(Assignment a, Void param) {
+        a.getTarget().accept(this, param);
+        a.getValue().accept(this, param);
         return null;
     }
 
     @Override
     public Void visit(ConditionalStatement c, Void param) {
+        c.getCondition().accept(this, param);
+        c.getIfStatements().forEach(i -> i.accept(this, param));
+        c.getElseStatements().forEach(e -> e.accept(this, param));
         return null;
     }
 
     @Override
     public Void visit(Read r, Void param) {
+        r.getExpression().accept(this, param);
         return null;
     }
 
     @Override
     public Void visit(ReturnStatement rt, Void param) {
+        rt.getExpression().accept(this, param);
         return null;
     }
 
     @Override
     public Void visit(While w, Void param) {
+        w.getCondition().accept(this, param);
+        w.getBody().forEach(b -> b.accept(this, param));
         return null;
     }
 
     @Override
     public Void visit(Write w, Void param) {
+        w.getExpressions().accept(this, param);
         return null;
     }
 
     @Override
     public Void visit(ArrayType a, Void param) {
+        a.getType().accept(this, param);
         return null;
     }
 
@@ -177,11 +193,14 @@ public class TypeCheckingVisitor implements Visitor<Void, Void>{
 
     @Override
     public Void visit(Field f, Void param) {
+        f.getType().accept(this, param);
         return null;
     }
 
     @Override
     public Void visit(FunctionType f, Void param) {
+        f.getReturnType().accept(this, param);
+        f.getParameters().forEach(p -> p.getType().accept(this, param));
         return null;
     }
 
@@ -192,6 +211,7 @@ public class TypeCheckingVisitor implements Visitor<Void, Void>{
 
     @Override
     public Void visit(RecordType r, Void param) {
+        r.getFields().forEach(f -> f.accept(this, param));
         return null;
     }
 
