@@ -6,6 +6,7 @@ import introspector.view.IntrospectorView;
 import parser.*;
 
 import org.antlr.v4.runtime.*;
+import visitor.TypeCheckingVisitor;
 
 public class Main {
 	
@@ -23,6 +24,10 @@ public class Main {
 		CommonTokenStream tokens = new CommonTokenStream(lexer); 
 		CmmParser parser = new CmmParser(tokens);
 		Program ast = parser.program().ast;
+
+		TypeCheckingVisitor tcVisitor = new TypeCheckingVisitor();
+
+		tcVisitor.visit(ast, null);
 
 		if(ErrorHandler.anyErrors()){
 			ErrorHandler.showErrors(System.err);

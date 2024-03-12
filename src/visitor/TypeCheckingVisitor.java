@@ -134,6 +134,10 @@ public class TypeCheckingVisitor implements Visitor<Void, Void>{
     public Void visit(Assignment a, Void param) {
         a.getTarget().accept(this, param);
         a.getValue().accept(this, param);
+        if( !a.getTarget().getLvalue() ){
+            new ErrorType(a.getTarget().getLine(), a.getTarget().getColumn(),
+                    String.format("You can not assign %s to %s because is not l-value", a.getValue(), a.getTarget()));
+        }
         return null;
     }
 
@@ -148,6 +152,10 @@ public class TypeCheckingVisitor implements Visitor<Void, Void>{
     @Override
     public Void visit(Read r, Void param) {
         r.getExpression().accept(this, param);
+        if( !r.getExpression().getLvalue() ){
+            new ErrorType(r.getExpression().getLine(), r.getExpression().getColumn(),
+                    String.format("Can not read %s because is not l-value", r.getExpression()));
+        }
         return null;
     }
 
