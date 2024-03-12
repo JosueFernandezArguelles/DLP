@@ -13,6 +13,14 @@ public class Indexing extends AbstractExpression implements Expression{
         this.index = index;
     }
 
+    public Expression getVariable() {
+        return this.variable;
+    }
+
+    public Expression getIndex() {
+        return this.index;
+    }
+
     @Override
     public String toString() {
         return variable.toString() + "[" + index.toString() + "]";
