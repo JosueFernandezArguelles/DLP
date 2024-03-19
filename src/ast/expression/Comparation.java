@@ -1,7 +1,6 @@
 package ast.expression;
 
-import ast.AbstractASTNode;
-import visitor.Visitor;
+import semantic.visitor.Visitor;
 
 public class Comparation extends AbstractExpression{
 

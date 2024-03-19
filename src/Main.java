@@ -6,7 +6,7 @@ import introspector.view.IntrospectorView;
 import parser.*;
 
 import org.antlr.v4.runtime.*;
-import visitor.TypeCheckingVisitor;
+import semantic.visitor.TypeCheckingVisitor;
 
 public class Main {
 	

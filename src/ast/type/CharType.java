@@ -1,7 +1,7 @@
 package ast.type;
 
 import ast.AbstractASTNode;
-import visitor.Visitor;
+import semantic.visitor.Visitor;
 
 public class CharType extends AbstractASTNode implements Type{
     public CharType(int line, int column) {

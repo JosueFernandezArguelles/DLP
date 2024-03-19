@@ -1,7 +1,7 @@
 package ast.type;
 
 import ast.AbstractASTNode;
-import visitor.Visitor;
+import semantic.visitor.Visitor;
 
 public class IntegerType extends AbstractASTNode implements Type{
     public IntegerType(int line, int column) {

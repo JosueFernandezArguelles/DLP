@@ -1,8 +1,7 @@
 package ast.program;
 
-import ast.ASTNode;
 import ast.AbstractASTNode;
-import visitor.Visitor;
+import semantic.visitor.Visitor;
 
 import java.util.ArrayList;
 import java.util.List;

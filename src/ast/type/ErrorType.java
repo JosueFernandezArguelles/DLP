@@ -2,7 +2,7 @@ package ast.type;
 
 import ast.AbstractASTNode;
 import ast.errorhandler.ErrorHandler;
-import visitor.Visitor;
+import semantic.visitor.Visitor;
 
 public class ErrorType extends AbstractASTNode implements Type {
 

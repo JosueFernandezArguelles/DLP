@@ -1,8 +1,7 @@
 package ast.expression;
 
-import ast.AbstractASTNode;
 import ast.type.Type;
-import visitor.Visitor;
+import semantic.visitor.Visitor;
 
 public class Cast extends AbstractExpression{
 

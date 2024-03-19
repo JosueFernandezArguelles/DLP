@@ -1,7 +1,7 @@
 package ast.type;
 
 import ast.AbstractASTNode;
-import visitor.Visitor;
+import semantic.visitor.Visitor;
 
 public class DoubleType extends AbstractASTNode implements Type{
     public DoubleType(int line, int column) {
