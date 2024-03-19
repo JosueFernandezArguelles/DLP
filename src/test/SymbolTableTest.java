@@ -1,7 +1,8 @@
-package semantic.symboltable;
+package test;
 
 
 import ast.program.VariableDefinition;
+import semantic.symboltable.SymbolTable;
 
 public class SymbolTableTest {
 		
