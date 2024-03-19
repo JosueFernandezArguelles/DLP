@@ -17,7 +17,7 @@ public class SymbolTable {
     }
 
     public void set(){
-        table.add(new HashMap<String, Definition>());
+        table.add(new HashMap<>());
         scope++;
     }
 
