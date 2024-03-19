@@ -1,10 +1,12 @@
 package ast.expression;
 
+import ast.program.Definition;
 import semantic.visitor.Visitor;
 
 public class Variable extends AbstractExpression{
 
     private String name;
+    private Definition definition;
     public Variable(int line, int column, String name) {
         super(line, column);
         this.name = name;
@@ -12,6 +14,14 @@ public class Variable extends AbstractExpression{
 
     public String getName(){
         return this.name;
+    }
+
+    public Definition getDefinition() {
+        return this.definition;
+    }
+
+    public void setDefinition(Definition definition) {
+        this.definition = definition;
     }
 
     @Override
