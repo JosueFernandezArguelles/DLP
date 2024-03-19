@@ -27,7 +27,6 @@ public class IdentificationVisitor extends AbstractVisitor<Void, Void>{
 
     @Override
     public Void visit(FunctionDefinition f, Void param) {
-
         //Function name
         if(!table.insert(f)){
             new ErrorType(f.getLine(), f.getColumn(),
