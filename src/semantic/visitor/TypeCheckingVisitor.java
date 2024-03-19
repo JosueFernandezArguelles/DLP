@@ -8,16 +8,14 @@ public class TypeCheckingVisitor extends AbstractVisitor<Void, Void>{
 
     @Override
     public Void visit(Arithmetic a, Void param) {
-        a.getLeft().accept(this, param);
-        a.getRight().accept(this, param);
+        super.visit(a, param);
         a.setLvalue(false);
         return null;
     }
 
     @Override
     public Void visit(Cast c, Void param) {
-        c.getExpression().accept(this, param);
-        c.getType().accept(this, param);
+        super.visit(c, param);
         c.setLvalue(false);
         return null;
     }
@@ -30,8 +28,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Void, Void>{
 
     @Override
     public Void visit(Comparation c, Void param) {
-        c.getLeft().accept(this, param);
-        c.getRight().accept(this, param);
+        super.visit(c, param);
         c.setLvalue(false);
         return null;
     }
@@ -44,23 +41,21 @@ public class TypeCheckingVisitor extends AbstractVisitor<Void, Void>{
 
     @Override
     public Void visit(FieldAccess f, Void param) {
-        f.getExpression().accept(this, param);
+        super.visit(f, param);
         f.setLvalue(true);
         return null;
     }
 
     @Override
     public Void visit(FunctionInvocation c, Void param) {
-        c.getVariable().accept(this, param);
-        c.getExpressionList().forEach(e -> e.accept(this, param));
+        super.visit(c, param);
         c.setLvalue(false);
         return null;
     }
 
     @Override
     public Void visit(Indexing i, Void param) {
-        i.getVariable().accept(this, param);
-        i.getIndex().accept(this, param);
+        super.visit(i, param);
         i.setLvalue(true);
         return null;
     }
@@ -73,30 +68,28 @@ public class TypeCheckingVisitor extends AbstractVisitor<Void, Void>{
 
     @Override
     public Void visit(Logical l, Void param) {
-        l.getLeft().accept(this, param);
-        l.getRight().accept(this, param);
+        super.visit(l, param);
         l.setLvalue(false);
         return null;
     }
 
     @Override
     public Void visit(Modulus m, Void param) {
-        m.getLeft().accept(this, param);
-        m.getRight().accept(this, param);
+        super.visit(m, param);
         m.setLvalue(false);
         return null;
     }
 
     @Override
     public Void visit(Negation n, Void param) {
-        n.getExpression().accept(this, param);
+        super.visit(n, param);
         n.setLvalue(false);
         return null;
     }
 
     @Override
     public Void visit(UnaryMinus u, Void param) {
-        u.getExpression().accept(this, param);
+        super.visit(u, param);
         u.setLvalue(false);
         return null;
     }
@@ -109,8 +102,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Void, Void>{
 
     @Override
     public Void visit(Assignment a, Void param) {
-        a.getTarget().accept(this, param);
-        a.getValue().accept(this, param);
+        super.visit(a, param);
         if( !a.getTarget().getLvalue() ){
             new ErrorType(a.getTarget().getLine(), a.getTarget().getColumn(),
                     String.format("You can not assign %s to %s because is not l-value", a.getValue(), a.getTarget()));
@@ -120,7 +112,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Void, Void>{
 
     @Override
     public Void visit(Read r, Void param) {
-        r.getExpression().accept(this, param);
+        super.visit(r, param);
         if( !r.getExpression().getLvalue() ){
             new ErrorType(r.getExpression().getLine(), r.getExpression().getColumn(),
                     String.format("Can not read %s because is not l-value", r.getExpression()));
