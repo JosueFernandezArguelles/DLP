@@ -42,14 +42,6 @@ public class IdentificationVisitor extends AbstractVisitor<Void, Void>{
     }
 
     @Override
-    public Void visit(FunctionType f, Void param) {
-        for( VariableDefinition vd : f.getParameters() ){
-            table.insert(vd);
-        }
-        return super.visit(f, param);
-    }
-
-    @Override
     public Void visit(VariableDefinition v, Void param) {
         super.visit(v, param);
         if(!table.insert(v)){

@@ -6,6 +6,7 @@ import introspector.view.IntrospectorView;
 import parser.*;
 
 import org.antlr.v4.runtime.*;
+import semantic.visitor.IdentificationVisitor;
 import semantic.visitor.TypeCheckingVisitor;
 
 public class Main {
@@ -25,7 +26,7 @@ public class Main {
 		CmmParser parser = new CmmParser(tokens);
 		Program ast = parser.program().ast;
 
-		TypeCheckingVisitor tcVisitor = new TypeCheckingVisitor();
+		IdentificationVisitor tcVisitor = new IdentificationVisitor();
 
 		tcVisitor.visit(ast, null);
 
