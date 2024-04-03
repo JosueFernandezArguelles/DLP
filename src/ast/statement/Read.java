@@ -4,7 +4,7 @@ import ast.AbstractASTNode;
 import ast.expression.Expression;
 import semantic.visitor.Visitor;
 
-public class Read extends AbstractASTNode implements Statement {
+public class Read extends AbstractStatement {
 
     private Expression expression;
     public Read(int line, int column, Expression expression) {

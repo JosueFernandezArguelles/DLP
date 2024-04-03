@@ -7,7 +7,7 @@ import semantic.visitor.Visitor;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConditionalStatement extends AbstractASTNode implements Statement {
+public class ConditionalStatement extends AbstractStatement {
 
     private List<Statement> ifStatements;
     private List<Statement> elseStatements;

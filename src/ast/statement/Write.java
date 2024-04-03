@@ -4,7 +4,7 @@ import ast.AbstractASTNode;
 import ast.expression.Expression;
 import semantic.visitor.Visitor;
 
-public class Write extends AbstractASTNode implements Statement {
+public class Write extends AbstractStatement {
 
     private Expression expression;
     public Write(int line, int column, Expression expression) {

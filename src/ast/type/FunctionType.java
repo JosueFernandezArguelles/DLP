@@ -7,7 +7,7 @@ import semantic.visitor.Visitor;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FunctionType extends AbstractASTNode implements Type {
+public class FunctionType extends AbstractType {
 
     private Type returnType;
     private List<VariableDefinition> parameters;
@@ -33,5 +33,37 @@ public class FunctionType extends AbstractASTNode implements Type {
     @Override
     public <TP, TR> TR accept(Visitor<TP, TR> v, TP param) {
         return v.visit(this, param);
+    }
+
+    @Override
+    public void assign(Type t){
+        if( ! (t instanceof FunctionType)  ){
+            new ErrorType(this.getLine(), this.getColumn(),
+                    String.format( "%s and %s can not be used for assignment operations", this, t));
+        }
+    }
+
+    @Override
+    public Type parenthesis(Type[] t){
+        if( t.length != parameters.size()  ){
+            return new ErrorType(this.getLine(), this.getColumn(), "Wrong number of parameters");
+        }
+
+        for( int i = 0; i <= parameters.size(); i++ ){
+            Type type =  parameters.get(i).getType();
+            if( type != t[i] ){
+                return new ErrorType(type.getLine(), type.getColumn(),
+                        String.format( "Parameter number %s must be %s", i, type));
+            }
+        }
+        return this.returnType;
+    }
+
+    @Override
+    public void returnAs(Type t){
+        if( ! (t instanceof FunctionType)  ){
+            new ErrorType(this.getLine(), this.getColumn(),
+                    String.format( "Return time must be %s ", this));
+        }
     }
 }

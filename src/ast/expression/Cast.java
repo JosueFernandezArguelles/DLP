@@ -6,24 +6,24 @@ import semantic.visitor.Visitor;
 public class Cast extends AbstractExpression{
 
     private Expression expression;
-    private Type type;
+    private Type castType;
     public Cast(int line, int column, Type type, Expression expression) {
         super(line, column);
         this.expression = expression;
-        this.type = type;
+        this.castType = type;
     }
 
     public Expression getExpression() {
         return this.expression;
     }
 
-    public Type getType() {
-        return this.type;
+    public Type getCastType() {
+        return this.castType;
     }
 
     @Override
     public String toString() {
-        return "(" + type.toString() + ")" + expression.toString();
+        return "(" + castType.toString() + ")" + expression.toString();
     }
 
     @Override
