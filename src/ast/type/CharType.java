@@ -51,11 +51,12 @@ public class CharType extends AbstractType{
     }
 
     @Override
-    public void assign(Type t){
+    public Type assign(Type t){
         if( ! (t instanceof CharType)  ){
-            new ErrorType(this.getLine(), this.getColumn(),
+           return new ErrorType(this.getLine(), this.getColumn(),
                     String.format( "%s and %s can not be used for assignment operations", this, t));
         }
+        return this;
     }
 
     @Override
@@ -67,7 +68,7 @@ public class CharType extends AbstractType{
     public void returnAs(Type t){
         if( ! (t instanceof CharType)  ){
             new ErrorType(this.getLine(), this.getColumn(),
-                    String.format( "Return time must be %s ", this));
+                    String.format( "Return type must be %s ", this));
         }
     }
 }

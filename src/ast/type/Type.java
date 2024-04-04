@@ -12,11 +12,12 @@ public interface Type extends ASTNode {
     Type negation();
     Type unaryMinus();
 
-    void assign(Type t);
+    Type assign(Type t);
     void mustBeReadable();
     void mustBeWritable();
     void mustBeBoolean();
 
     Type parenthesis( Type[] t );
     void returnAs(Type t);
+    Type dot(String id);
 }

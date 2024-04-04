@@ -11,13 +11,13 @@ public abstract class AbstractType extends AbstractASTNode implements Type{
     @Override
     public Type arithmetic(Type t){
         return new ErrorType(this.getLine(), this.getColumn(),
-                String.format( "%s can not be used in an arithmetic operation with %s", t.toString(), this ));
+                String.format( "%scan not be used in an arithmetic operation with %s", t.toString(), this ));
     }
 
     @Override
     public Type castTo(Type t){
         return new ErrorType(this.getLine(), this.getColumn(),
-                String.format( "%s can not be cast to %s", this, t.toString() ));
+                String.format( "%scan not be cast to %s", this, t.toString() ));
     }
 
     @Override
@@ -35,42 +35,42 @@ public abstract class AbstractType extends AbstractASTNode implements Type{
     @Override
     public Type logical(Type t){
         return new ErrorType(this.getLine(), this.getColumn(),
-                String.format( "%s and %s can not be used for logical operations", this, t));
+                String.format( "%sand %scan not be used for logical operations", this, t));
     }
 
     @Override
     public Type modulus(Type t){
         return new ErrorType(this.getLine(), this.getColumn(),
-                String.format( "%s and %s can not be used for modulus operations", this, t));
+                String.format( "%sand %scan not be used for modulus operations", this, t));
     }
 
     @Override
     public Type negation(){
         return new ErrorType(this.getLine(), this.getColumn(),
-                String.format( "%s can not be used for negation operations", this));
+                String.format( "%scan not be used for negation operations", this));
     }
 
     @Override
     public Type unaryMinus(){
         return new ErrorType(this.getLine(), this.getColumn(),
-                String.format( "%s can not be used for unary minus operations", this));
+                String.format( "%scan not be used for unary minus operations", this));
     }
 
     @Override
     public void mustBeReadable(){
         new ErrorType(this.getLine(), this.getColumn(),
-                String.format( "%s is not readable", this));
+                String.format( "%sis not readable", this));
     }
 
     @Override
     public void mustBeWritable(){
         new ErrorType(this.getLine(), this.getColumn(),
-                String.format( "%s is not writable", this));
+                String.format( "%sis not writable", this));
     }
     @Override
     public void mustBeBoolean(){
         new ErrorType(this.getLine(), this.getColumn(),
-                String.format( "%s is not boolean", this));
+                String.format( "%sis not boolean", this));
     }
 
     @Override
@@ -81,6 +81,18 @@ public abstract class AbstractType extends AbstractASTNode implements Type{
     @Override
     public void returnAs(Type t){
         new ErrorType(this.getLine(), this.getColumn(),
-                String.format( "%s has not parenthesis operation", this));
+                String.format( "%s can not be returned", this));
+    }
+
+    @Override
+    public Type dot(String s){
+        return new ErrorType(this.getLine(), this.getColumn(),
+                String.format( "%s has not field access operation", this));
+    }
+
+    @Override
+    public Type assign(Type t){
+        return new ErrorType(this.getLine(), this.getColumn(),
+                String.format( "%s can not be assign", this));
     }
 }

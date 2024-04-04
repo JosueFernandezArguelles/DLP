@@ -23,7 +23,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Void, Void>{
 		   DONE (13) Read: statement -> exp
 		   DONE (14) Write: statement -> exp
 		   DONE (15) Return: statement -> exp
-		    (16) FieldAccess: exp1 -> exp2 ID
+		   DONE (16) FieldAccess: exp1 -> exp2 ID
 		   DONE (17) IfElse: statement1 -> exp statement2* statement3*
 		   DONE (18) FunctionDefinition: definition -> type ID definition* statement*
 		   DONE (19) IntLiteral: exp -> INT_CONSTANT
@@ -100,8 +100,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Void, Void>{
     public Void visit(FieldAccess f, Void param) {
         super.visit(f, param);
         f.setLvalue(true);
-
-        //exp1.type = exp2.type.dot(ID)
+        f.setType( f.getExpression().getType().dot(f.getFieldName()) );
         return null;
     }
 
@@ -109,7 +108,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Void, Void>{
     public Void visit(FunctionInvocation c, Void param) {
         super.visit(c, param);
         c.setLvalue(false);
-        c.setType( c.getVariable().getType().parenthesis((Type[]) c.getExpressionList().stream().map(Expression::getType).toArray()) );
+        c.setType( c.getVariable().getType().parenthesis( c.getExpressionList().stream().map(Expression::getType).toArray(Type[]::new)) );
         return null;
     }
 
@@ -178,7 +177,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Void, Void>{
             new ErrorType(a.getTarget().getLine(), a.getTarget().getColumn(),
                     String.format("You can not assign %s to %s because is not l-value", a.getValue(), a.getTarget()));
         } else{
-            a.getTarget().getType().assign(a.getValue().getType());
+            a.getTarget().setType( a.getValue().getType().assign(a.getTarget().getType()));
         }
         return null;
     }
@@ -215,7 +214,9 @@ public class TypeCheckingVisitor extends AbstractVisitor<Void, Void>{
         super.visit(c, param);
         c.getCondition().getType().mustBeBoolean();
         c.getIfStatements().forEach( s-> s.setReturnType( c.getReturnType() ) );
-        c.getElseStatements().forEach( s-> s.setReturnType( c.getReturnType() ) );
+        if( c.getElseStatements() != null){
+            c.getElseStatements().forEach( s-> s.setReturnType( c.getReturnType() ) );
+        }
         return null;
     }
 
@@ -232,5 +233,4 @@ public class TypeCheckingVisitor extends AbstractVisitor<Void, Void>{
         r.getExpression().getType().returnAs(r.getReturnType());
         return null;
     }
-
 }

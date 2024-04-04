@@ -63,7 +63,7 @@ public class ErrorType extends AbstractType {
     }
 
     @Override
-    public void assign(Type t){}
+    public Type assign(Type t){return this;}
 
     @Override
     public void mustBeReadable() {}

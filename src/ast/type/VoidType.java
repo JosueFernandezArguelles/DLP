@@ -18,12 +18,4 @@ public class VoidType extends AbstractType{
         return v.visit(this, param);
     }
 
-    @Override
-    public void assign(Type t){
-        if( ! (t instanceof VoidType)  ){
-            new ErrorType(this.getLine(), this.getColumn(),
-                    String.format( "%s and %s can not be used for assignment operations", this, t));
-        }
-    }
-
 }

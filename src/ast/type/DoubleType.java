@@ -44,13 +44,13 @@ public class DoubleType extends AbstractType{
     }
 
     @Override
-    public void assign(Type t){
+    public Type assign(Type t){
         if( ! (t instanceof DoubleType)  ){
-            new ErrorType(this.getLine(), this.getColumn(),
+           return new ErrorType(this.getLine(), this.getColumn(),
                     String.format( "%s and %s can not be used for assignment operations", this, t));
         }
+        return this;
     }
-
     @Override
     public void mustBeReadable() {}
     @Override
@@ -60,7 +60,7 @@ public class DoubleType extends AbstractType{
     public void returnAs(Type t){
         if( ! (t instanceof DoubleType)  ){
             new ErrorType(this.getLine(), this.getColumn(),
-                    String.format( "Return time must be %s ", this));
+                    String.format( "Return type must be %s ", this));
         }
     }
 }

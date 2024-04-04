@@ -1,6 +1,7 @@
 package ast.expression;
 
 import ast.statement.Statement;
+import ast.type.Type;
 import semantic.visitor.Visitor;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ public class FunctionInvocation extends AbstractExpression implements Statement 
 
     private Variable variable;
     private List<Expression> expressionList;
+    private Type returnType;
     public FunctionInvocation(int line, int column, Variable variable, List<Expression> expressionList) {
         super(line, column);
         this.variable = variable;
@@ -39,5 +41,15 @@ public class FunctionInvocation extends AbstractExpression implements Statement 
     @Override
     public <TP, TR> TR accept(Visitor<TP, TR> v, TP param) {
         return v.visit(this, param);
+    }
+
+    @Override
+    public Type getReturnType() {
+        return returnType;
+    }
+
+    @Override
+    public void setReturnType(Type t) {
+        returnType = t;
     }
 }

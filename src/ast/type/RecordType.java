@@ -29,18 +29,21 @@ public class RecordType extends AbstractType{
     }
 
     @Override
-    public void assign(Type t){
+    public void returnAs(Type t){
         if( ! (t instanceof RecordType)  ){
             new ErrorType(this.getLine(), this.getColumn(),
-                    String.format( "%s and %s can not be used for assignment operations", this, t));
+                    String.format( "Return type must be %s ", this));
         }
     }
 
     @Override
-    public void returnAs(Type t){
-        if( ! (t instanceof RecordType)  ){
-            new ErrorType(this.getLine(), this.getColumn(),
-                    String.format( "Return time must be %s ", this));
+    public Type dot(String s){
+        for( Field f : fields ){
+            if( f.getName().equals(s) ){
+                return this;
+            }
         }
+        return new ErrorType(this.getLine(), this.getColumn(),
+                String.format( "No %s field", s));
     }
 }

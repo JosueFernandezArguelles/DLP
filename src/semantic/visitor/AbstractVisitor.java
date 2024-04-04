@@ -127,7 +127,9 @@ public abstract class AbstractVisitor<TP, TR> implements Visitor<TP,TR> {
     public TR visit(ConditionalStatement c, TP param) {
         c.getCondition().accept(this, param);
         c.getIfStatements().forEach(i -> i.accept(this, param));
-        c.getElseStatements().forEach(e -> e.accept(this, param));
+        if( c.getElseStatements() != null ){
+            c.getElseStatements().forEach(e -> e.accept(this, param));
+        }
         return null;
     }
 

@@ -36,20 +36,12 @@ public class FunctionType extends AbstractType {
     }
 
     @Override
-    public void assign(Type t){
-        if( ! (t instanceof FunctionType)  ){
-            new ErrorType(this.getLine(), this.getColumn(),
-                    String.format( "%s and %s can not be used for assignment operations", this, t));
-        }
-    }
-
-    @Override
     public Type parenthesis(Type[] t){
         if( t.length != parameters.size()  ){
             return new ErrorType(this.getLine(), this.getColumn(), "Wrong number of parameters");
         }
 
-        for( int i = 0; i <= parameters.size(); i++ ){
+        for( int i = 0; i < parameters.size(); i++ ){
             Type type =  parameters.get(i).getType();
             if( type != t[i] ){
                 return new ErrorType(type.getLine(), type.getColumn(),
@@ -63,7 +55,7 @@ public class FunctionType extends AbstractType {
     public void returnAs(Type t){
         if( ! (t instanceof FunctionType)  ){
             new ErrorType(this.getLine(), this.getColumn(),
-                    String.format( "Return time must be %s ", this));
+                    String.format( "Return type must be %s ", this));
         }
     }
 }
