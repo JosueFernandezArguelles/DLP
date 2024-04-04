@@ -230,6 +230,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Void, Void>{
     @Override
     public Void visit(ReturnStatement r, Void param){
         super.visit(r, param);
+        r.setReturnType(r.getExpression().getType());
         r.getExpression().getType().returnAs(r.getReturnType());
         return null;
     }

@@ -41,7 +41,7 @@ public class FunctionType extends AbstractType {
             return new ErrorType(this.getLine(), this.getColumn(), "Wrong number of parameters");
         }
 
-        for( int i = 0; i < parameters.size(); i++ ){
+        for( int i = 0; i < t.length; i++ ){
             Type type =  parameters.get(i).getType();
             if( type != t[i] ){
                 return new ErrorType(type.getLine(), type.getColumn(),
@@ -49,13 +49,5 @@ public class FunctionType extends AbstractType {
             }
         }
         return this.returnType;
-    }
-
-    @Override
-    public void returnAs(Type t){
-        if( ! (t instanceof FunctionType)  ){
-            new ErrorType(this.getLine(), this.getColumn(),
-                    String.format( "Return type must be %s ", this));
-        }
     }
 }
