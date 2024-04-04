@@ -40,7 +40,7 @@ public class RecordType extends AbstractType{
     public Type dot(String s){
         for( Field f : fields ){
             if( f.getName().equals(s) ){
-                return this;
+                return f.getType();
             }
         }
         return new ErrorType(this.getLine(), this.getColumn(),

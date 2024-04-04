@@ -33,10 +33,13 @@ public class Main {
 
 		tcVisitor.visit(ast, null);
 
+		IntrospectorModel model=new IntrospectorModel("Program", ast);
+		new IntrospectorView("Introspector", model);
+
 		if(ErrorHandler.anyErrors()){
 			ErrorHandler.showErrors(System.err);
 		} else{
-			IntrospectorModel model=new IntrospectorModel("Program", ast);
+			//IntrospectorModel model=new IntrospectorModel("Program", ast);
 			new IntrospectorView("Introspector", model);
 		}
 	}

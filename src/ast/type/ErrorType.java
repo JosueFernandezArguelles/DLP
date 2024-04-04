@@ -29,26 +29,49 @@ public class ErrorType extends AbstractType {
 
     @Override
     public Type arithmetic(Type t) {
+
+        if( t instanceof ErrorType ){
+            return t;
+        }
+
         return this;
     }
 
     @Override
     public Type castTo(Type t){
+
+        if( t instanceof ErrorType ){
+            return t;
+        }
+
         return this;
     }
 
     @Override
     public Type comparation(Type t) {
+
+        if( t instanceof ErrorType ){
+            return t;
+        }
+
         return this;
     }
 
     @Override
     public Type logical(Type t) {
+        if( t instanceof ErrorType ){
+            return t;
+        }
         return this;
     }
 
     @Override
     public Type modulus(Type t) {
+
+        if( t instanceof ErrorType ){
+            return t;
+        }
+
         return this;
     }
 
@@ -63,7 +86,7 @@ public class ErrorType extends AbstractType {
     }
 
     @Override
-    public Type assign(Type t){return this;}
+    public void assign(Type t){}
 
     @Override
     public void mustBeReadable() {}

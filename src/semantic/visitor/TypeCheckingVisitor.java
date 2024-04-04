@@ -177,7 +177,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Void, Void>{
             new ErrorType(a.getTarget().getLine(), a.getTarget().getColumn(),
                     String.format("You can not assign %s to %s because is not l-value", a.getValue(), a.getTarget()));
         } else{
-            a.getTarget().setType( a.getValue().getType().assign(a.getTarget().getType()));
+            a.getValue().getType().assign(a.getTarget().getType());
         }
         return null;
     }

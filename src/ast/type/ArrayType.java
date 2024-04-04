@@ -33,6 +33,11 @@ public class ArrayType extends AbstractType{
 
     @Override
     public Type squareBrackets(Type t){
+
+        if( t instanceof ErrorType ){
+            return t;
+        }
+
         if( t instanceof IntegerType ){
             return this.type;
         }

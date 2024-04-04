@@ -12,7 +12,7 @@ public interface Type extends ASTNode {
     Type negation();
     Type unaryMinus();
 
-    Type assign(Type t);
+    void assign(Type t);
     void mustBeReadable();
     void mustBeWritable();
     void mustBeBoolean();

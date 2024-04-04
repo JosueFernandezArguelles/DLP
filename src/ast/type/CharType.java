@@ -20,6 +20,11 @@ public class CharType extends AbstractType{
 
     @Override
     public Type arithmetic(Type t) {
+
+        if( t instanceof ErrorType ){
+            return t;
+        }
+
         return t instanceof CharType ? new IntegerType(this.getLine(), this.getColumn()) :
                 new ErrorType(this.getLine(), this.getColumn(),
                     String.format( "%s can not be used in an arithmetic operation with %s", t.toString(), this ));
@@ -27,12 +32,22 @@ public class CharType extends AbstractType{
 
     @Override
     public Type castTo(Type t){
+
+        if( t instanceof ErrorType ){
+            return t;
+        }
+
         return t instanceof CharType || t instanceof IntegerType || t instanceof DoubleType ? t :
                 new ErrorType(this.getLine(), this.getColumn(), String.format( "%s can not be cast to %s", t.toString(), this ));
     }
 
     @Override
     public Type comparation(Type t) {
+
+        if( t instanceof ErrorType ){
+            return t;
+        }
+
         return t instanceof CharType ? new IntegerType(this.getLine(), this.getColumn()) :
                 new ErrorType(this.getLine(), this.getColumn(),
                         String.format( "%s can not be compared to %s", t.toString(), this ));
@@ -40,6 +55,11 @@ public class CharType extends AbstractType{
 
     @Override
     public Type modulus(Type t) {
+
+        if( t instanceof ErrorType ){
+            return t;
+        }
+
         return t instanceof CharType || t instanceof IntegerType ? new IntegerType(this.getLine(), this.getColumn()) :
                 new ErrorType(this.getLine(), this.getColumn(),
                         String.format( "%s and %s can not be used for modulus operations", t.toString(), this ));
@@ -51,12 +71,11 @@ public class CharType extends AbstractType{
     }
 
     @Override
-    public Type assign(Type t){
+    public void assign(Type t){
         if( ! (t instanceof CharType)  ){
-           return new ErrorType(this.getLine(), this.getColumn(),
+           new ErrorType(this.getLine(), this.getColumn(),
                     String.format( "%s and %s can not be used for assignment operations", this, t));
         }
-        return this;
     }
 
     @Override
