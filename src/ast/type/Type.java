@@ -18,6 +18,6 @@ public interface Type extends ASTNode {
     void mustBeBoolean();
 
     Type parenthesis( Type[] t );
-    void returnAs(Type t);
+    Type returnAs(Type t);
     Type dot(String id);
 }

@@ -84,10 +84,11 @@ public class CharType extends AbstractType{
     public void mustBeWritable() {}
 
     @Override
-    public void returnAs(Type t){
+    public Type returnAs(Type t){
         if( ! (t instanceof CharType)  ){
-            new ErrorType(this.getLine(), this.getColumn(),
+            return new ErrorType(this.getLine(), this.getColumn(),
                     String.format( "Return type must be %s ", this));
         }
+        return this;
     }
 }

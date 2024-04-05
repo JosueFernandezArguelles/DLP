@@ -43,13 +43,4 @@ public class FunctionInvocation extends AbstractExpression implements Statement 
         return v.visit(this, param);
     }
 
-    @Override
-    public Type getReturnType() {
-        return returnType;
-    }
-
-    @Override
-    public void setReturnType(Type t) {
-        returnType = t;
-    }
 }

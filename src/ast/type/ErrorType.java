@@ -92,5 +92,5 @@ public class ErrorType extends AbstractType {
     public void mustBeReadable() {}
 
     @Override
-    public void returnAs(Type t){}
+    public Type returnAs(Type t){ return this; }
 }

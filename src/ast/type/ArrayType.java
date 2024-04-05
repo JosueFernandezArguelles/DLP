@@ -45,10 +45,11 @@ public class ArrayType extends AbstractType{
     }
 
     @Override
-    public void returnAs(Type t){
+    public Type returnAs(Type t){
         if( ! (t instanceof ArrayType)  ){
-            new ErrorType(this.getLine(), this.getColumn(),
+            return new ErrorType(this.getLine(), this.getColumn(),
                     String.format( "Return type must be %s ", this));
         }
+        return this;
     }
 }
