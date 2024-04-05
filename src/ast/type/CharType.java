@@ -92,7 +92,7 @@ public class CharType extends AbstractType{
 
         if( ! (t instanceof CharType)  ){
             return new ErrorType(this.getLine(), this.getColumn(),
-                    String.format( "Return type must be %s ", this));
+                    String.format( "Return type must be %s ", t));
         }
         return this;
     }

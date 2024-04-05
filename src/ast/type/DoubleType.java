@@ -68,7 +68,7 @@ public class DoubleType extends AbstractType{
     public Type returnAs(Type t){
         if( ! (t instanceof DoubleType)  ){
             return new ErrorType(this.getLine(), this.getColumn(),
-                    String.format( "Return type must be %s ", this));
+                    String.format( "Return type must be %s ", t));
         }
         return this;
     }
