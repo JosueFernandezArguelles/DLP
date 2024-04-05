@@ -1,5 +1,6 @@
 package semantic.visitor;
 
+import ast.expression.FunctionInvocation;
 import ast.expression.Variable;
 import ast.program.Definition;
 import ast.program.FunctionDefinition;

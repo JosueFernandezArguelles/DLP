@@ -104,6 +104,11 @@ public class IntegerType extends AbstractType{
 
     @Override
     public Type returnAs(Type t){
+
+        if( t instanceof ErrorType ){
+            return t;
+        }
+
         if( ! (t instanceof IntegerType)  ){
             return new ErrorType(this.getLine(), this.getColumn(),
                     String.format( "Return type must be %s ", this));

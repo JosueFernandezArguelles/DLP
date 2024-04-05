@@ -36,16 +36,17 @@ public class FunctionType extends AbstractType {
     }
 
     @Override
-    public Type parenthesis(Type[] t){
-        if( t.length != parameters.size()  ){
+    public Type parenthesis(List<Type> t){
+        if( t.size() != parameters.size()  ){
             return new ErrorType(this.getLine(), this.getColumn(), "Wrong number of parameters");
         }
 
-        for( int i = 0; i < t.length; i++ ){
-            Type type =  parameters.get(i).getType();
-            if( type != t[i] ){
+        int count = 0;
+
+        for( Type type : t ){
+            if( !type.equals( parameters.get(count++).getType()) ){
                 return new ErrorType(type.getLine(), type.getColumn(),
-                        String.format( "Parameter number %s must be %s", i, type));
+                        String.format( "Parameter number %s must be %s", count, type));
             }
         }
         return this.returnType;

@@ -5,6 +5,9 @@ import ast.program.FunctionDefinition;
 import ast.statement.*;
 import ast.type.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TypeCheckingVisitor extends AbstractVisitor<Type, Void>{
 
     /*
@@ -108,7 +111,14 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type, Void>{
     public Void visit(FunctionInvocation c, Type param) {
         super.visit(c, param);
         c.setLvalue(false);
-        c.setType( c.getVariable().getType().parenthesis( c.getExpressionList().stream().map(Expression::getType).toArray(Type[]::new)) );
+
+        List<Type> types = new ArrayList<>();
+
+        for (Expression exp : c.getExpressionList()){
+            types.add(exp.getType());
+        }
+
+        c.setType( c.getVariable().getType().parenthesis(types));
         return null;
     }
 

@@ -1,5 +1,6 @@
 package ast.expression;
 
+import ast.program.Definition;
 import ast.statement.Statement;
 import ast.type.Type;
 import semantic.visitor.Visitor;
@@ -11,7 +12,7 @@ public class FunctionInvocation extends AbstractExpression implements Statement 
 
     private Variable variable;
     private List<Expression> expressionList;
-    private Type returnType;
+    private Definition definition;
     public FunctionInvocation(int line, int column, Variable variable, List<Expression> expressionList) {
         super(line, column);
         this.variable = variable;
@@ -36,6 +37,14 @@ public class FunctionInvocation extends AbstractExpression implements Statement 
         expressions = !expressions.isEmpty() ? expressions.substring(0, expressions.length()-1) : expressions;
 
         return variable.toString() + "(" + expressions + ")";
+    }
+
+    public Definition getDefinition(){
+        return this.definition;
+    }
+
+    public void setDefinition(Definition definition){
+        this.definition = definition;
     }
 
     @Override

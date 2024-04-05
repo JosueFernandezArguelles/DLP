@@ -2,6 +2,8 @@ package ast.type;
 
 import ast.ASTNode;
 
+import java.util.List;
+
 public interface Type extends ASTNode {
     Type arithmetic(Type t);
     Type castTo(Type t);
@@ -17,7 +19,7 @@ public interface Type extends ASTNode {
     void mustBeWritable();
     void mustBeBoolean();
 
-    Type parenthesis( Type[] t );
+    Type parenthesis( List<Type> t );
     Type returnAs(Type t);
     Type dot(String id);
 }

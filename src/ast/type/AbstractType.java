@@ -2,6 +2,8 @@ package ast.type;
 
 import ast.AbstractASTNode;
 
+import java.util.List;
+
 public abstract class AbstractType extends AbstractASTNode implements Type{
 
     public AbstractType(int line, int column) {
@@ -10,66 +12,54 @@ public abstract class AbstractType extends AbstractASTNode implements Type{
 
     @Override
     public Type arithmetic(Type t){
-
         if( t instanceof ErrorType ){
             return t;
         }
-
         return new ErrorType(this.getLine(), this.getColumn(),
                 String.format( "%scan not be used in an arithmetic operation with %s", t.toString(), this ));
     }
 
     @Override
     public Type castTo(Type t){
-
         if( t instanceof ErrorType ){
             return t;
         }
-
         return new ErrorType(this.getLine(), this.getColumn(),
                 String.format( "%scan not be cast to %s", this, t.toString() ));
     }
 
     @Override
     public Type comparation(Type t){
-
         if( t instanceof ErrorType ){
             return t;
         }
-
         return new ErrorType(this.getLine(), this.getColumn(),
                 String.format( "%s can not be compared to %s", this, t.toString() ));
     }
 
     @Override
     public Type squareBrackets(Type t){
-
         if( t instanceof ErrorType ){
             return t;
         }
-
         return new ErrorType(this.getLine(), this.getColumn(),
                 String.format( "%s can not be used for indexing", this));
     }
 
     @Override
     public Type logical(Type t){
-
         if( t instanceof ErrorType ){
             return t;
         }
-
         return new ErrorType(this.getLine(), this.getColumn(),
                 String.format( "%sand %scan not be used for logical operations", this, t));
     }
 
     @Override
     public Type modulus(Type t){
-
         if( t instanceof ErrorType ){
             return t;
         }
-
         return new ErrorType(this.getLine(), this.getColumn(),
                 String.format( "%sand %scan not be used for modulus operations", this, t));
     }
@@ -104,12 +94,15 @@ public abstract class AbstractType extends AbstractASTNode implements Type{
     }
 
     @Override
-    public Type parenthesis(Type[] t){
+    public Type parenthesis(List<Type> t){
         return new ErrorType(this.getLine(), this.getColumn(),
                 String.format( "%s has not parenthesis operation", this));
     }
     @Override
     public Type returnAs(Type t){
+        if( t instanceof ErrorType ){
+            return t;
+        }
         return new ErrorType(this.getLine(), this.getColumn(),
                 String.format( "%s can not be returned", this));
     }
@@ -126,5 +119,10 @@ public abstract class AbstractType extends AbstractASTNode implements Type{
             new ErrorType(this.getLine(), this.getColumn(),
                     String.format( "%s can not be assign", this));
         }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.getClass() == obj.getClass();
     }
 }
