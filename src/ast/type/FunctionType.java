@@ -44,7 +44,7 @@ public class FunctionType extends AbstractType {
         int count = 0;
 
         for( Type type : t ){
-            if( !type.equals( parameters.get(count++).getType()) ){
+            if( ! (type.getClass() == parameters.get(count++).getType().getClass()) ){
                 return new ErrorType(type.getLine(), type.getColumn(),
                         String.format( "Parameter number %s must be %s", count, type));
             }

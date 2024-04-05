@@ -120,9 +120,4 @@ public abstract class AbstractType extends AbstractASTNode implements Type{
                     String.format( "%s can not be assign", this));
         }
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        return this.getClass() == obj.getClass();
-    }
 }
