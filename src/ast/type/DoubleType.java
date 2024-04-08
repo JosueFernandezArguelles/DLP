@@ -65,11 +65,10 @@ public class DoubleType extends AbstractType{
     public void mustBeWritable() {}
 
     @Override
-    public Type returnAs(Type t){
+    public void returnAs(Type t){
         if( ! (t instanceof DoubleType)  ){
-            return new ErrorType(this.getLine(), this.getColumn(),
+            new ErrorType(this.getLine(), this.getColumn(),
                     String.format( "Return type must be %s ", t));
         }
-        return this;
     }
 }

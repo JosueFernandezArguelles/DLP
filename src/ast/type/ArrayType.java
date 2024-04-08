@@ -43,13 +43,4 @@ public class ArrayType extends AbstractType{
         }
         return new ErrorType(this.getLine(), this.getColumn(), String.format( "You can not be use %s inside [ ]", t));
     }
-
-    @Override
-    public Type returnAs(Type t){
-        if( ! (t instanceof ArrayType)  ){
-            return new ErrorType(this.getLine(), this.getColumn(),
-                    String.format( "Return type must be %s ", this));
-        }
-        return this;
-    }
 }

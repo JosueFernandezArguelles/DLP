@@ -28,14 +28,6 @@ public class RecordType extends AbstractType{
         return v.visit(this, param);
     }
 
-    @Override
-    public Type returnAs(Type t){
-        if( ! (t instanceof RecordType)  ){
-            return new ErrorType(this.getLine(), this.getColumn(),
-                    String.format( "Return type must be %s ", this));
-        }
-        return this;
-    }
 
     @Override
     public Type dot(String s){

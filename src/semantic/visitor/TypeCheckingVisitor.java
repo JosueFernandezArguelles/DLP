@@ -238,7 +238,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type, Void>{
         super.visit(r, param);
         FunctionType returnType = (FunctionType) param;
         r.getExpression().accept(this, returnType.getReturnType());
-        r.getExpression().setType( r.getExpression().getType().returnAs(returnType.getReturnType()) );
+        r.getExpression().getType().returnAs(returnType.getReturnType());
         return null;
     }
 }

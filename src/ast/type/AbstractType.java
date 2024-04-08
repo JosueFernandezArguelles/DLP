@@ -99,11 +99,8 @@ public abstract class AbstractType extends AbstractASTNode implements Type{
                 String.format( "%s has not parenthesis operation", this));
     }
     @Override
-    public Type returnAs(Type t){
-        if( t instanceof ErrorType ){
-            return t;
-        }
-        return new ErrorType(this.getLine(), this.getColumn(),
+    public void returnAs(Type t){
+        new ErrorType(this.getLine(), this.getColumn(),
                 String.format( "%s can not be returned", this));
     }
 

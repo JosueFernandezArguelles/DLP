@@ -103,16 +103,11 @@ public class IntegerType extends AbstractType{
     public void mustBeBoolean() {}
 
     @Override
-    public Type returnAs(Type t){
-
-        if( t instanceof ErrorType ){
-            return t;
-        }
+    public void returnAs(Type t){
 
         if( ! (t instanceof IntegerType)  ){
-            return new ErrorType(this.getLine(), this.getColumn(),
+             new ErrorType(this.getLine(), this.getColumn(),
                     String.format( "Return type must be %s ", t));
         }
-        return this;
     }
 }
