@@ -6,6 +6,7 @@ import semantic.visitor.Visitor;
 public class DoubleType extends AbstractType{
     public DoubleType(int line, int column) {
         super(line, column);
+        setNumberOfBytes(4);
     }
 
     @Override
@@ -54,6 +55,11 @@ public class DoubleType extends AbstractType{
 
     @Override
     public void assign(Type t){
+
+        if( t instanceof ErrorType ){
+            return;
+        }
+
         if( ! (t instanceof DoubleType)  ){
            new ErrorType(this.getLine(), this.getColumn(),
                     String.format( "%s and %s can not be used for assignment operations", this, t));

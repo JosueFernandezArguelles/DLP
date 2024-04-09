@@ -22,4 +22,7 @@ public interface Type extends ASTNode {
     Type parenthesis( List<Type> t );
     void returnAs(Type t);
     Type dot(String id);
+
+    int getNumberOfBytes();
+    void setNumberOfBytes(int i);
 }

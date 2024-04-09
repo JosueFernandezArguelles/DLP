@@ -19,6 +19,9 @@ public class VariableDefinition extends AbstractDefinition{
     public int getOffset(){
         return this.offset;
     }
+    public void setOffset(int offset){
+        this.offset = offset;
+    }
 
     @Override
     public <TP, TR> TR accept(Visitor<TP, TR> v, TP param) {

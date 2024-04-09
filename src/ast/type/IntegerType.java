@@ -6,6 +6,7 @@ import semantic.visitor.Visitor;
 public class IntegerType extends AbstractType{
     public IntegerType(int line, int column) {
         super(line, column);
+        setNumberOfBytes(2);
     }
 
     @Override
@@ -89,9 +90,14 @@ public class IntegerType extends AbstractType{
 
     @Override
     public void assign(Type t){
+
+        if( t instanceof ErrorType ) {
+            return;
+        }
+
         if( ! (t instanceof IntegerType)  ){
-             new ErrorType(this.getLine(), this.getColumn(),
-                    String.format( "%s and %s can not be used for assignment operations", this, t));
+         new ErrorType(this.getLine(), this.getColumn(),
+                String.format( "%s and %s can not be used for assignment operations", this, t));
         }
     }
 

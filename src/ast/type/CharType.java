@@ -6,6 +6,7 @@ import semantic.visitor.Visitor;
 public class CharType extends AbstractType{
     public CharType(int line, int column) {
         super(line, column);
+        setNumberOfBytes(1);
     }
 
     @Override
@@ -72,6 +73,11 @@ public class CharType extends AbstractType{
 
     @Override
     public void assign(Type t){
+
+        if( t instanceof ErrorType ) {
+            return;
+        }
+
         if( ! (t instanceof CharType)  ){
            new ErrorType(this.getLine(), this.getColumn(),
                     String.format( "%s and %s can not be used for assignment operations", this, t));
