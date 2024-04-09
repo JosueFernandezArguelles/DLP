@@ -24,5 +24,4 @@ public interface Type extends ASTNode {
     Type dot(String id);
 
     int getNumberOfBytes();
-    void setNumberOfBytes(int i);
 }

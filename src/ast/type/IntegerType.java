@@ -6,7 +6,6 @@ import semantic.visitor.Visitor;
 public class IntegerType extends AbstractType{
     public IntegerType(int line, int column) {
         super(line, column);
-        setNumberOfBytes(2);
     }
 
     @Override
@@ -115,5 +114,10 @@ public class IntegerType extends AbstractType{
              new ErrorType(this.getLine(), this.getColumn(),
                     String.format( "Return type must be %s ", t));
         }
+    }
+
+    @Override
+    public int getNumberOfBytes() {
+        return 2;
     }
 }

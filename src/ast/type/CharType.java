@@ -6,7 +6,6 @@ import semantic.visitor.Visitor;
 public class CharType extends AbstractType{
     public CharType(int line, int column) {
         super(line, column);
-        setNumberOfBytes(1);
     }
 
     @Override
@@ -95,5 +94,10 @@ public class CharType extends AbstractType{
             new ErrorType(this.getLine(), this.getColumn(),
                     String.format( "Return type must be %s ", t));
         }
+    }
+
+    @Override
+    public int getNumberOfBytes() {
+        return 1;
     }
 }

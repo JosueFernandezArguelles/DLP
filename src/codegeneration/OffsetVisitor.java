@@ -2,7 +2,9 @@ package codegeneration;
 
 import ast.program.FunctionDefinition;
 import ast.program.VariableDefinition;
+import ast.type.Field;
 import ast.type.FunctionType;
+import ast.type.RecordType;
 import ast.type.Type;
 import semantic.visitor.AbstractVisitor;
 
@@ -46,7 +48,7 @@ public class OffsetVisitor extends AbstractVisitor<Void, Void> {
         int localByteSum = 0;
         for(VariableDefinition vd : f.getVariables()){
             localByteSum += vd.getType().getNumberOfBytes();
-            vd.setOffset(localByteSum);
+            vd.setOffset(-localByteSum);
         }
         return null;
     }
@@ -69,6 +71,17 @@ public class OffsetVisitor extends AbstractVisitor<Void, Void> {
         if(v.getScope() == 0){
             v.setOffset(globalByteSum);
             globalByteSum += v.getType().getNumberOfBytes();
+        }
+        return null;
+    }
+
+    @Override
+    public Void visit(RecordType r, Void param){
+        int fieldByteSum = 0;
+        for(Field f : r.getFields()){
+            f.accept(this, null);
+            f.setOffset(fieldByteSum);
+            fieldByteSum += f.getType().getNumberOfBytes();
         }
         return null;
     }

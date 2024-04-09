@@ -39,4 +39,9 @@ public class RecordType extends AbstractType{
         return new ErrorType(this.getLine(), this.getColumn(),
                 String.format( "No %s field", s));
     }
+
+    @Override
+    public int getNumberOfBytes() {
+        return this.fields.stream().mapToInt( rf -> rf.getType().getNumberOfBytes() ).sum();
+    }
 }

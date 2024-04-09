@@ -6,8 +6,6 @@ import java.util.List;
 
 public abstract class AbstractType extends AbstractASTNode implements Type{
 
-    private int numberOfBytes;
-
     public AbstractType(int line, int column) {
         super(line, column);
     }
@@ -122,11 +120,6 @@ public abstract class AbstractType extends AbstractASTNode implements Type{
 
     @Override
     public int getNumberOfBytes(){
-        return this.numberOfBytes;
-    }
-
-    @Override
-    public void setNumberOfBytes(int i){
-        this.numberOfBytes = i;
+        throw new IllegalCallerException("Can not get the number of bytes");
     }
 }
