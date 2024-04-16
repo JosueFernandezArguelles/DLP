@@ -1,0 +1,14 @@
+package codegeneration;
+
+public class AddressCGVisitor {
+
+    /*
+        address[[Variable: exp -> ID]] = if( exp.definition.scope == 0 ){
+                                            <pusha> exp.definition.offset
+                                         } else{
+                                            <push bp>
+                                            <pushi> exp.definition.offset
+                                            <addi>
+                                         }
+    */
+}
