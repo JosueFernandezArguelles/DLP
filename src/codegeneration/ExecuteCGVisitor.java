@@ -17,10 +17,14 @@ public class ExecuteCGVisitor {
         execute[[VariableDefinition: varDefinition -> type ID]] = if(varDefinition.scope == 0){
 
                                                                   } else{
+                                                                    <enter> ??? Aquí o en FuncDef?
                                                                   }
 
         execute[[FunctionDefinition: functionDefinition -> type ID variableDefinition* statement*]] =
                                                         ID <:>
+                                                        <enter> variableDefinition*.isEmpty  ?
+                                                                     0 :
+                                                                     - variableDefinition*.get(variableDefinition*.size()-1).offset
                                                         variableDefinition*.forEach(vd -> execute[[vd]])
                                                         statement*.forEach(s -> execute[[s]])
 

@@ -4,10 +4,13 @@ public class ValueCGVisitor {
     /*
         value[[IntLiteral: exp -> INT_C]] = <pushi>
                                             exp.value
+
         value[[DoubleLiteral: exp -> REAL_C]] = <pushf>
                                                 exp.value
+
         value[[CharacterLiteral: exp -> CHAR_C]] = <pushb>
                                                    exp.value
+
         value[[Variable: exp -> ID]] = address[[exp]]
                                        loadi
 
