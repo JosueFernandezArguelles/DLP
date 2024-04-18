@@ -12,7 +12,7 @@ import ast.type.VoidType;
 public class ExecuteCGVisitor extends AbstractCGVisitor<FunctionDefinition, Void>{
 
     /*
-        execute[[Read: statement -> expression]]= value[[expression]]
+        execute[[Read: statement -> expression]]= address[[expression]]
                                                   <in> expression.type.suffix()
                                                   <store> expression.type.suffix()
 

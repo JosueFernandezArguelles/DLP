@@ -1,0 +1,139 @@
+call main 
+halt 
+'* Global Variables: 
+'*char  c (offset 0) 
+'*int  a (offset 1) 
+'*double  r (offset 3) 
+'*int  i (offset 7) 
+main: 
+pusha 0 
+pushb 97 
+storeb 
+'* Write: Line 8 
+pusha 0 
+loadb 
+outb 
+'* Write: Line 8 
+pushb 10 
+outb 
+pusha 1 
+pushi 1 
+storei 
+pusha 7 
+pushb 48 
+b2i 
+pushi 3 
+muli 
+storei 
+'* Write: Line 13 
+pusha 1 
+loadi 
+outi 
+'* Write: Line 13 
+pushb 32 
+outb 
+'* Write: Line 14 
+pusha 7 
+loadi 
+outi 
+'* Write: Line 14 
+pushb 10 
+outb 
+pusha 3 
+inf 
+storef 
+'* Write: Line 17 
+pushi 2 
+i2f 
+pusha 3 
+loadf 
+mulf 
+outf 
+'* Write: Line 17 
+pushb 10 
+outb 
+'* Write: Line 19 
+pushi 3 
+i2f 
+pushf 4.5 
+subf 
+outf 
+'* Write: Line 19 
+pushb 32 
+outb 
+'* Write: Line 20 
+pushb 48 
+b2i 
+i2f 
+pushf 48.0 
+divf 
+outf 
+'* Write: Line 20 
+pushb 32 
+outb 
+'* Write: Line 21 
+pushi 0 
+pushi 1 
+mod 
+outi 
+'* Write: Line 21 
+pushb 32 
+outb 
+'* Write: Line 22 
+pushb 48 
+b2i 
+pushb 49 
+b2i 
+addi 
+outi 
+'* Write: Line 22 
+pushb 10 
+outb 
+'* Write: Line 24 
+pushi 1 
+pushi 2 
+lti 
+outi 
+'* Write: Line 24 
+pushb 32 
+outb 
+'* Write: Line 25 
+pushi 4 
+pushi 3 
+gei 
+outi 
+'* Write: Line 25 
+pushb 32 
+outb 
+'* Write: Line 26 
+pushi 5 
+pushi 5 
+eqi 
+outi 
+'* Write: Line 26 
+pushb 32 
+outb 
+'* Write: Line 27 
+pushi 1 
+pushi 2 
+and 
+outi 
+'* Write: Line 27 
+pushb 32 
+outb 
+'* Write: Line 28 
+pushi 0 
+pushi 3 
+or 
+outi 
+'* Write: Line 28 
+pushb 32 
+outb 
+'* Write: Line 29 
+pushi 0 
+not 
+outi 
+'* Write: Line 29 
+pushb 10 
+outb 
+ret 0,0,0 
