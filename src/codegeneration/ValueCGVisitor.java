@@ -54,40 +54,54 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void,Void>{
 
     */
 
-    private CodeGenerator cg = new CodeGenerator();
+    private CodeGenerator cg;
+
+    public ValueCGVisitor(CodeGenerator cg){
+        this.cg = cg;
+    }
 
     @Override
     public Void visit(IntLiteral i, Void param) {
-        i.addCode("pushi " + i.getValue() + " \n");
+        cg.push(i);
         return null;
     }
 
     @Override
     public Void visit(DoubleLiteral d, Void param) {
-        d.addCode("pushf " + d.getValue() + " \n");
+        cg.push(d);
         return null;
     }
 
     @Override
     public Void visit(CharacterLiteral c, Void param) {
-        c.addCode("pushb " + (int) c.getValue() + " \n");
+        cg.push(c);
         return null;
     }
 
     @Override
     public Void visit(Variable v, Void param) {
-        v.accept(new AddressCGVisitor(), param);
-        v.addCode( "load" + v.getDefinition().getType().suffix() + " \n" );
+        v.accept(new AddressCGVisitor(cg), param);
+        cg.load( v.getDefinition().getType() );
         return null;
     }
 
     @Override
     public Void visit(Arithmetic a, Void param){
         a.getLeft().accept(this, param);
-        a.addCode( a.getLeft().getType().convertTo(a.getType()));
+        cg.convertTo(a.getLeft().getType(), a.getType());
         a.getRight().accept(this, param);
-        a.addCode( a.getRight().getType().convertTo(a.getType()) );
-        a.addCode( cg.arithmetic(a.getOperator(), a.getType()) );
+        cg.convertTo( a.getRight().getType(), a.getType() );
+        cg.arithmetic(a.getOperator(), a.getType());
+        return null;
+    }
+
+    @Override
+    public Void visit(Modulus m, Void param){
+        m.getLeft().accept(this, param);
+        cg.convertTo(m.getLeft().getType(), m.getType());
+        m.getRight().accept(this, param);
+        cg.convertTo( m.getRight().getType(), m.getType() );
+        cg.modulus();
         return null;
     }
 
@@ -95,10 +109,10 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void,Void>{
     public Void visit(Comparation c, Void param){
         Type superType = c.getLeft().getType().superType(c.getType());
         c.getLeft().accept(this, param);
-        c.addCode( c.getLeft().getType().convertTo(superType) );
+        cg.convertTo( c.getLeft().getType(), superType );
         c.getRight().accept(this, param);
-        c.addCode( c.getRight().getType().convertTo(superType) );
-        c.addCode( cg.comparison( c.getOperator(), superType ) );
+        cg.convertTo( c.getRight().getType(), superType );
+        cg.comparison( c.getOperator(), superType );
         return null;
     }
 
@@ -106,21 +120,21 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void,Void>{
     public Void visit(Logical l, Void param){
         l.getLeft().accept(this, param);
         l.getRight().accept(this, param);
-        l.addCode( cg.logical(l.getOperator()) );
+        cg.logical(l.getOperator());
         return null;
     }
 
     @Override
     public Void visit(Negation n, Void param){
         n.getExpression().accept(this, param);
-        n.addCode("not \n");
+        cg.not();
         return null;
     }
 
     @Override
     public Void visit(Cast c, Void param){
         c.getExpression().accept(this, param);
-        c.addCode( c.getExpression().getType().convertTo(c.getCastType()) );
+        cg.convertTo( c.getExpression().getType(), c.getCastType() );
         return null;
     }
 }

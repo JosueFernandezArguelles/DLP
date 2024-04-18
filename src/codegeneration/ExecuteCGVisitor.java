@@ -26,17 +26,17 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<FunctionDefinition, Void
         execute[[VariableDefinition: varDefinition -> type ID]] = <'*> type.toString() ID <(offset> varDefinition.offset <)>
 
         execute[[FunctionDefinition: functionDefinition -> type ID variableDefinition* statement*]] =
-                                                        ID <:>
-                                                        execute[[type]]
-                                                        <'* Local Variables:>
-                                                        variableDefinition*.forEach(v -> execute[[v]])
-                                                        int bytesLocals = variableDefinition*.isEmpty  ? 0 : - variableDefinition*.get(variableDefinition*.size()-1).offset
-                                                        <enter> bytesLocals
-                                                        int bytesParameters = type.parameters.stream().mapToInt( p -> type.noB()).sum();
-                                                        int bytesReturn = type.returnType.noB()
-                                                        statement*.forEach(s -> execute[[s]](bytesReturn, bytesLocals, bytesParameters))
-                                                        if(type.returnType instanceof VoidType)
-                                                            <ret> bytesReturn <,> bytesLocals <,> bytesParameters
+                    ID <:>
+                    execute[[type]]
+                    <'* Local Variables:>
+                    variableDefinition*.forEach(v -> execute[[v]])
+                    int bytesLocals = variableDefinition*.isEmpty  ? 0 : - variableDefinition*.get(variableDefinition*.size()-1).offset
+                    <enter> bytesLocals
+                    int bytesParameters = type.parameters.stream().mapToInt( p -> type.noB()).sum();
+                    int bytesReturn = type.returnType.noB()
+                    statement*.forEach(s -> execute[[s]](bytesReturn, bytesLocals, bytesParameters))
+                    if(type.returnType instanceof VoidType)
+                        <ret> bytesReturn <,> bytesLocals <,> bytesParameters
 
         execute[[Program: program -> definition*]] = <call main>
                                                      <halt>
@@ -44,57 +44,62 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<FunctionDefinition, Void
                                                      definition*.forEach(d -> execute[[d]])
     */
 
+    private CodeGenerator cg;
+
+    public ExecuteCGVisitor(CodeGenerator cg){
+        this.cg = cg;
+    }
+
     @Override
     public Void visit(Read r, FunctionDefinition fd){
-        r.getExpression().accept(new ValueCGVisitor(), null);
-        r.addCode("in " + r.getExpression().getType().suffix() + " \n");
-        r.addCode("store " + r.getExpression().getType().suffix() + " \n");
+        r.getExpression().accept(new ValueCGVisitor(cg), null);
+        cg.in( r.getExpression().getType() );
+        cg.store( r.getExpression().getType() );
         return null;
     }
 
     @Override
     public Void visit(Write w, FunctionDefinition fd){
-        w.getExpressions().accept(new ValueCGVisitor(), null);
-        w.addCode("out " + w.getExpressions().getType().suffix() + " \n");
+        cg.addComment("'* Write  \n");
+        w.getExpressions().accept(new ValueCGVisitor(cg), null);
+        cg.out(w.getExpressions().getType());
         return null;
     }
 
     @Override
     public Void visit(Assignment a, FunctionDefinition fd){
-        a.getTarget().accept(new AddressCGVisitor(), null);
-        a.getValue().accept(new ValueCGVisitor(), null);
-        a.addCode("store " + a.getTarget().getType().suffix() + " \n");
+        a.getTarget().accept(new AddressCGVisitor(cg), null);
+        a.getValue().accept(new ValueCGVisitor(cg), null);
+        cg.store( a.getTarget().getType() );
         return null;
     }
 
     @Override
     public Void visit(VariableDefinition vd, FunctionDefinition fd){
-        vd.addCode( String.format( "'*%s %s (offset %s)",  vd.getType().toString(), vd.getName(), vd.getOffset()));
+        cg.addComment( String.format( "'*%s %s (offset %s)",  vd.getType().toString(), vd.getName(), vd.getOffset()) );
         return null;
     }
 
     @Override
     public Void visit(FunctionDefinition fd, FunctionDefinition param){
-        fd.addCode(fd.getName() + ": \n");
-        fd.getType().accept(this, param);
-        fd.addCode("'*Local Variables: \n");
+        cg.tag(fd);
+        //fd.getType().accept(this, param);
+        cg.addComment("'*Local Variables:");
         fd.getVariables().forEach(v -> v.accept(this, param));
         int bytesLocals = fd.getVariables().isEmpty() ? 0 : -fd.getVariables().get(fd.getVariables().size()-1).getOffset();
-        fd.addCode("enter " + bytesLocals + " \n");
+        cg.enter(bytesLocals);
         int bytesParameters = ((FunctionType)fd.getType()).getParameters().stream().mapToInt(p -> p.getType().getNumberOfBytes()).sum();
-        int bytesReturn = ((FunctionType) fd.getType()).getReturnType().getNumberOfBytes();
+        int bytesReturn = fd.getType() instanceof VoidType ? 0 : ((FunctionType) fd.getType()).getReturnType().getNumberOfBytes();
         fd.getStatements().forEach(s -> s.accept(this, param));
         if(((FunctionType) fd.getType()).getReturnType() instanceof VoidType){
-            fd.addCode("ret " + bytesReturn + "," + bytesLocals + "," + bytesParameters + " \n");
+            cg.ret(bytesReturn, bytesLocals, bytesParameters);
         }
         return null;
     }
 
     @Override
     public Void visit(Program p, FunctionDefinition param){
-        p.addCode("call main \n");
-        p.addCode("halt \n");
-        p.addCode("'* Global Variables: \n");
+        cg.mainFunction();
         p.getDefinitions().forEach( d -> d.accept(this, param) );
         return null;
     }

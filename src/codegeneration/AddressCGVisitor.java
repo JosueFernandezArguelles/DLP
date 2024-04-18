@@ -9,8 +9,6 @@ import ast.type.*;
 import semantic.visitor.Visitor;
 
 public class AddressCGVisitor extends AbstractCGVisitor<Void, Void> {
-
-
     /*
         address[[Variable: exp -> ID]] = if( exp.definition.scope == 0 ){
                                             <pusha> exp.definition.offset
@@ -21,14 +19,15 @@ public class AddressCGVisitor extends AbstractCGVisitor<Void, Void> {
                                          }
     */
 
+    private CodeGenerator cg;
+
+    public AddressCGVisitor(CodeGenerator cg){
+        this.cg = cg;
+    }
+
     @Override
     public Void visit(Variable v, Void param) {
-        VariableDefinition vd = (VariableDefinition) v.getDefinition();
-        if(v.getDefinition().getScope() == 0){
-            v.addCode("pusha " + vd.getOffset() + " \n" );
-        } else {
-            v.addCode("push bp \n" + "pushi" + vd.getOffset() + "\n" + "addi \n");
-        }
+        cg.pushAddress( v );
         return null;
     }
 }

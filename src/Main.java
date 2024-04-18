@@ -1,6 +1,8 @@
 
 import ast.errorhandler.ErrorHandler;
 import ast.program.Program;
+import codegeneration.CodeGenerator;
+import codegeneration.ExecuteCGVisitor;
 import codegeneration.OffsetVisitor;
 import introspector.model.IntrospectorModel;
 import introspector.view.IntrospectorView;
@@ -37,6 +39,14 @@ public class Main {
 		OffsetVisitor offsetVisitor = new OffsetVisitor();
 
 		offsetVisitor.visit(ast, null);
+
+		CodeGenerator cg = new CodeGenerator(args[1]);
+
+		ExecuteCGVisitor executeCGVisitor = new ExecuteCGVisitor(cg);
+
+		executeCGVisitor.visit(ast, null);
+
+		cg.write();
 
 		if(ErrorHandler.anyErrors()){
 			ErrorHandler.showErrors(System.err);
