@@ -14,16 +14,16 @@ public class LexerHelper {
 
 	public static char lexemeToChar(String str) {
 		try {
-			if( str.charAt(0) == ('\\') ){
-				if(str.charAt(1) == 'n'){
-					return '\n';
-				} else if (str.charAt(1) == 't') {
-					return '\t';
-				} else if (Character.isDigit(str.charAt(1))) {
-					return (char) Integer.parseInt( str.substring(1, str.length() - 1) );
-				}
-			}
 			if( str.length() > 1 ){
+				if( str.charAt(1) == ('\\') ){
+					if(str.charAt(2) == 'n'){
+						return '\n';
+					} else if (str.charAt(2) == 't') {
+						return '\t';
+					} else if (Character.isDigit(str.charAt(2))) {
+						return (char) Integer.parseInt( str.substring(1, str.length() - 1) );
+					}
+				}
 				return str.charAt(1);
 			}
 			return str.charAt(0);

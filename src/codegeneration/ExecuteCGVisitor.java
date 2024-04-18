@@ -52,7 +52,7 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<FunctionDefinition, Void
 
     @Override
     public Void visit(Read r, FunctionDefinition fd){
-        r.getExpression().accept(new ValueCGVisitor(cg), null);
+        r.getExpression().accept(new AddressCGVisitor(cg), null);
         cg.in( r.getExpression().getType() );
         cg.store( r.getExpression().getType() );
         return null;
@@ -60,7 +60,7 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<FunctionDefinition, Void
 
     @Override
     public Void visit(Write w, FunctionDefinition fd){
-        cg.addComment("'* Write");
+        cg.addComment("'* Write: Line " + w.getLine() );
         w.getExpressions().accept(new ValueCGVisitor(cg), null);
         cg.out(w.getExpressions().getType());
         return null;
