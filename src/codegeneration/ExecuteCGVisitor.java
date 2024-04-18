@@ -14,21 +14,24 @@ public class ExecuteCGVisitor {
                                                        value[[exp2]]
                                                        <store> exp1.type.suffix()
 
-        execute[[VariableDefinition: varDefinition -> type ID]] = if(varDefinition.scope == 0){
-
-                                                                  } else{
-                                                                    <enter> ??? Aquí o en FuncDef?
-                                                                  }
+        execute[[VariableDefinition: varDefinition -> type ID]] = <'*> type.toString() ID <(offset> varDefinition.offset <)>
 
         execute[[FunctionDefinition: functionDefinition -> type ID variableDefinition* statement*]] =
                                                         ID <:>
-                                                        <enter> variableDefinition*.isEmpty  ?
-                                                                     0 :
-                                                                     - variableDefinition*.get(variableDefinition*.size()-1).offset
-                                                        variableDefinition*.forEach(vd -> execute[[vd]])
-                                                        statement*.forEach(s -> execute[[s]])
+                                                        execute[[type]]
+                                                        <'* Local Variables:>
+                                                        variableDefinition*.forEach(v -> execute[[v]])
+                                                        int bytesLocals = variableDefinition*.isEmpty  ? 0 : - variableDefinition*.get(variableDefinition*.size()-1).offset
+                                                        <enter> bytesLocals
+                                                        int bytesParameters = type.parameters.stream().mapToInt( p -> type.noB()).sum();
+                                                        int bytesReturn = type.returnType.noB()
+                                                        statement*.forEach(s -> execute[[s]](bytesReturn, bytesLocals, bytesParameters))
+                                                        if(type.returnType instanceof VoidType)
+                                                            <ret> bytesReturn <,> bytesLocals <,> bytesParameters
 
-
-        execute[[Program: program -> definition*]] = definition*.forEach(d -> execute[[d]])
+        execute[[Program: program -> definition*]] = <call main>
+                                                     <halt>
+                                                     <'* Global Variables:>
+                                                     definition*.forEach(d -> execute[[d]])
     */
 }

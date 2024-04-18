@@ -2,17 +2,14 @@ package codegeneration;
 
 public class ValueCGVisitor {
     /*
-        value[[IntLiteral: exp -> INT_C]] = <pushi>
-                                            exp.value
+        value[[IntLiteral: exp -> INT_C]] = <pushi> exp.value
 
-        value[[DoubleLiteral: exp -> REAL_C]] = <pushf>
-                                                exp.value
+        value[[DoubleLiteral: exp -> REAL_C]] = <pushf> exp.value
 
-        value[[CharacterLiteral: exp -> CHAR_C]] = <pushb>
-                                                   exp.value
+        value[[CharacterLiteral: exp -> CHAR_C]] = <pushb> (int) exp.value
 
         value[[Variable: exp -> ID]] = address[[exp]]
-                                       loadi
+                                       <load> exp.variable.definition.type.suffix()
 
         value[[Arithmetic: exp1 -> exp2 exp3]] = value[[exp2]]
                                                  exp2.type.convertTo(exp1.type)
@@ -42,8 +39,8 @@ public class ValueCGVisitor {
         value[[Logical: exp1 -> exp2 exp3]]= value[[exp2]]
                                              value[[exp3]]
                                              switch(exp1.operator){
-                                                case "and": <and> break;
-                                                case "or": <or> break;
+                                                case "&&": <and> break;
+                                                case "||": <or> break;
                                              }
 
         value[[Negation: exp1 -> exp2]] = value[[exp2]]
