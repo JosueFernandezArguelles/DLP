@@ -35,7 +35,7 @@ public class CodeGenerator {
     }
 
     public void modulus() {
-        code += "mod";
+        code += "mod \n";
     }
 
     public void comparison(String operator, Type superType) {
@@ -120,7 +120,7 @@ public class CodeGenerator {
     }
 
     public void mainFunction() {
-        code += "call main \n halt \n '* Global Variables: \n";
+        code += "call main \nhalt \n'* Global Variables: \n";
     }
 
     public void write(){

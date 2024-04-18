@@ -60,7 +60,7 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<FunctionDefinition, Void
 
     @Override
     public Void visit(Write w, FunctionDefinition fd){
-        cg.addComment("'* Write  \n");
+        cg.addComment("'* Write");
         w.getExpressions().accept(new ValueCGVisitor(cg), null);
         cg.out(w.getExpressions().getType());
         return null;
@@ -84,10 +84,12 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<FunctionDefinition, Void
     public Void visit(FunctionDefinition fd, FunctionDefinition param){
         cg.tag(fd);
         //fd.getType().accept(this, param);
-        cg.addComment("'*Local Variables:");
         fd.getVariables().forEach(v -> v.accept(this, param));
         int bytesLocals = fd.getVariables().isEmpty() ? 0 : -fd.getVariables().get(fd.getVariables().size()-1).getOffset();
-        cg.enter(bytesLocals);
+        if( bytesLocals != 0 ){
+            cg.addComment("'*Local Variables:");
+            cg.enter(bytesLocals);
+        }
         int bytesParameters = ((FunctionType)fd.getType()).getParameters().stream().mapToInt(p -> p.getType().getNumberOfBytes()).sum();
         int bytesReturn = fd.getType() instanceof VoidType ? 0 : ((FunctionType) fd.getType()).getReturnType().getNumberOfBytes();
         fd.getStatements().forEach(s -> s.accept(this, param));

@@ -90,7 +90,7 @@ public class DoubleType extends AbstractType{
     @Override
     public String convertTo(Type t){
         if( t instanceof CharType ){
-            return "f2i \n i2b \n";
+            return "f2i \ni2b \n";
         } else if (t instanceof IntegerType) {
             return "f2i \n";
         } else if (t instanceof DoubleType) {
