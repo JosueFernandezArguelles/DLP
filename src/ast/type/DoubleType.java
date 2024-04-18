@@ -81,4 +81,27 @@ public class DoubleType extends AbstractType{
     public int getNumberOfBytes() {
         return 4;
     }
+
+    @Override
+    public String suffix(){
+        return "f";
+    }
+
+    @Override
+    public String convertTo(Type t){
+        if( t instanceof CharType ){
+            return "f2i \n i2b \n";
+        } else if (t instanceof IntegerType) {
+            return "f2i \n";
+        } else if (t instanceof DoubleType) {
+            return "";
+        } else {
+            throw new UnsupportedOperationException(String.format("Wrong conversion from %s to %s", this, t.toString()));
+        }
+    }
+
+    @Override
+    public Type superType(Type t){
+        return this;
+    }
 }

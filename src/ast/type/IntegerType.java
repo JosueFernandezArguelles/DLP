@@ -120,4 +120,27 @@ public class IntegerType extends AbstractType{
     public int getNumberOfBytes() {
         return 2;
     }
+
+    @Override
+    public String suffix(){
+        return "i";
+    }
+
+    @Override
+    public String convertTo(Type t){
+        if( t instanceof CharType ){
+            return "i2b \n";
+        } else if (t instanceof IntegerType) {
+            return "";
+        } else if (t instanceof DoubleType) {
+            return "i2f \n";
+        } else {
+            throw new UnsupportedOperationException(String.format("Wrong conversion from %s to %s", this, t.toString()));
+        }
+    }
+
+    @Override
+    public Type superType(Type t){
+        return t instanceof DoubleType ? t : this;
+    }
 }

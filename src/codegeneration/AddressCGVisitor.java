@@ -8,7 +8,7 @@ import ast.statement.*;
 import ast.type.*;
 import semantic.visitor.Visitor;
 
-public class AddressCGVisitor  {
+public class AddressCGVisitor extends AbstractCGVisitor<Void, Void> {
 
 
     /*
@@ -20,4 +20,15 @@ public class AddressCGVisitor  {
                                             <addi>
                                          }
     */
+
+    @Override
+    public Void visit(Variable v, Void param) {
+        VariableDefinition vd = (VariableDefinition) v.getDefinition();
+        if(v.getDefinition().getScope() == 0){
+            v.addCode("pusha " + vd.getOffset() + " \n" );
+        } else {
+            v.addCode("push bp \n" + "pushi" + vd.getOffset() + "\n" + "addi \n");
+        }
+        return null;
+    }
 }

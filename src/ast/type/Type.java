@@ -24,4 +24,10 @@ public interface Type extends ASTNode {
     Type dot(String id);
 
     int getNumberOfBytes();
+
+    String suffix();
+
+    String convertTo(Type type);
+
+    Type superType(Type type);
 }

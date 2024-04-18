@@ -122,4 +122,19 @@ public abstract class AbstractType extends AbstractASTNode implements Type{
     public int getNumberOfBytes(){
         throw new IllegalCallerException("Can not get the number of bytes");
     }
+
+    @Override
+    public String suffix(){
+        throw new UnsupportedOperationException( String.format("No suffix for %s type", this));
+    }
+
+    @Override
+    public String convertTo(Type t){
+        throw new UnsupportedOperationException( String.format("No conversion for %s type", this));
+    }
+
+    @Override
+    public Type superType(Type t){
+        throw new UnsupportedOperationException("No operation supported");
+    }
 }

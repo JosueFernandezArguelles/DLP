@@ -1,6 +1,9 @@
 package codegeneration;
 
-public class ValueCGVisitor {
+import ast.expression.*;
+import ast.type.Type;
+
+public class ValueCGVisitor extends AbstractCGVisitor<Void,Void>{
     /*
         value[[IntLiteral: exp -> INT_C]] = <pushi> exp.value
 
@@ -47,7 +50,77 @@ public class ValueCGVisitor {
                                           <not>
 
         value[[Cast: exp1 -> type exp2]] = value[[exp2]]
-                                           exp2.type.castTo(type)
+                                           exp2.type.convertTo(type)
 
     */
+
+    private CodeGenerator cg = new CodeGenerator();
+
+    @Override
+    public Void visit(IntLiteral i, Void param) {
+        i.addCode("pushi " + i.getValue() + " \n");
+        return null;
+    }
+
+    @Override
+    public Void visit(DoubleLiteral d, Void param) {
+        d.addCode("pushf " + d.getValue() + " \n");
+        return null;
+    }
+
+    @Override
+    public Void visit(CharacterLiteral c, Void param) {
+        c.addCode("pushb " + (int) c.getValue() + " \n");
+        return null;
+    }
+
+    @Override
+    public Void visit(Variable v, Void param) {
+        v.accept(new AddressCGVisitor(), param);
+        v.addCode( "load" + v.getDefinition().getType().suffix() + " \n" );
+        return null;
+    }
+
+    @Override
+    public Void visit(Arithmetic a, Void param){
+        a.getLeft().accept(this, param);
+        a.addCode( a.getLeft().getType().convertTo(a.getType()));
+        a.getRight().accept(this, param);
+        a.addCode( a.getRight().getType().convertTo(a.getType()) );
+        a.addCode( cg.arithmetic(a.getOperator(), a.getType()) );
+        return null;
+    }
+
+    @Override
+    public Void visit(Comparation c, Void param){
+        Type superType = c.getLeft().getType().superType(c.getType());
+        c.getLeft().accept(this, param);
+        c.addCode( c.getLeft().getType().convertTo(superType) );
+        c.getRight().accept(this, param);
+        c.addCode( c.getRight().getType().convertTo(superType) );
+        c.addCode( cg.comparison( c.getOperator(), superType ) );
+        return null;
+    }
+
+    @Override
+    public Void visit(Logical l, Void param){
+        l.getLeft().accept(this, param);
+        l.getRight().accept(this, param);
+        l.addCode( cg.logical(l.getOperator()) );
+        return null;
+    }
+
+    @Override
+    public Void visit(Negation n, Void param){
+        n.getExpression().accept(this, param);
+        n.addCode("not \n");
+        return null;
+    }
+
+    @Override
+    public Void visit(Cast c, Void param){
+        c.getExpression().accept(this, param);
+        c.addCode( c.getExpression().getType().convertTo(c.getCastType()) );
+        return null;
+    }
 }
