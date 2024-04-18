@@ -21,7 +21,7 @@ public class LexerHelper {
 					} else if (str.charAt(2) == 't') {
 						return '\t';
 					} else if (Character.isDigit(str.charAt(2))) {
-						return (char) Integer.parseInt( str.substring(1, str.length() - 1) );
+						return (char) Integer.parseInt( str.substring(2, str.length() - 1) );
 					}
 				}
 				return str.charAt(1);
