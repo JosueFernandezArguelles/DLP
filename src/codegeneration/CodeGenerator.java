@@ -59,6 +59,7 @@ public class CodeGenerator {
     }
 
     public void pushAddress(Variable v) {
+        assert v.getDefinition() instanceof VariableDefinition;
         VariableDefinition vd = (VariableDefinition) v.getDefinition();
         if(v.getDefinition().getScope() == 0){
             code += "pusha " + vd.getOffset() + " \n";
