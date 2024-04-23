@@ -65,7 +65,7 @@ public class CodeGenerator {
         if(v.getDefinition().getScope() == 0){
             code += "pusha " + vd.getOffset() + " \n";
         } else {
-            code += "push bp \n" + "pushi" + vd.getOffset() + "\n" + "addi \n";
+            code += "push bp \n" + "pushi " + vd.getOffset() + "\n" + "addi \n";
         }
     }
 
@@ -163,6 +163,6 @@ public class CodeGenerator {
     }
 
     public void pop(Type t) {
-        code += "pop " + t.suffix() + "\n";
+        code += "pop" + t.suffix() + "\n";
     }
 }
