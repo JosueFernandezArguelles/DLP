@@ -3,9 +3,7 @@ package codegeneration;
 import ast.program.FunctionDefinition;
 import ast.program.Program;
 import ast.program.VariableDefinition;
-import ast.statement.Assignment;
-import ast.statement.Read;
-import ast.statement.Write;
+import ast.statement.*;
 import ast.type.FunctionType;
 import ast.type.VoidType;
 
@@ -42,6 +40,27 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<FunctionDefinition, Void
                                                      <halt>
                                                      <'* Global Variables:>
                                                      definition*.forEach(d -> execute[[d]])
+
+        //LAB 12
+
+        execute[[While: stm1 -> exp stm2* ]] = String condLabel = cg.netLabel();
+                                               String exitLabel = cg.netLabel();
+                                               condLabel <:>
+                                               value[[exp]]
+                                               <jz> exitLabel
+                                               stm2*.forEach( s -> execute[[s]] )
+                                               <jmp> condLabel
+                                               exitLabel<:>
+
+        execute[[ConditionalStatement: stm1 -> exp stm2* stm3*]] = String elseLabel = cg.nextLabel();
+                                                                   String exitLabel = cg.nextLabel();
+                                                                   value[[exp]]
+                                                                   <jz> elseLabel:
+                                                                   stm2*.forEach( s -> execute[[s]] )
+                                                                   <jmp> exitLabel
+                                                                   elseLabel:
+                                                                   stm3*.forEach( s -> execute[[s]] )
+                                                                   exitLabel:
     */
 
     private CodeGenerator cg;
@@ -103,6 +122,34 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<FunctionDefinition, Void
     public Void visit(Program p, FunctionDefinition param){
         cg.mainFunction();
         p.getDefinitions().forEach( d -> d.accept(this, param) );
+        return null;
+    }
+
+    @Override
+    public Void visit(While w, FunctionDefinition param){
+        String condLabel = cg.nextLabel();
+        String exitLabel = cg.nextLabel();
+        cg.addComment("'*While:");
+        cg.addLabel(condLabel);
+        w.getCondition().accept(new ValueCGVisitor(cg), null);
+        cg.jumpZero(exitLabel);
+        w.getBody().forEach( s -> s.accept(this, null) );
+        cg.jump(condLabel);
+        cg.addLabel(exitLabel);
+        return null;
+    }
+
+    @Override
+    public Void visit(ConditionalStatement c, FunctionDefinition param){
+        String elseLabel = cg.nextLabel();
+        String exitLabel = cg.nextLabel();
+        c.getCondition().accept(new ValueCGVisitor(cg), null);
+        cg.jumpZero(elseLabel);
+        c.getIfStatements().forEach(s -> s.accept(this, null));
+        cg.jump(exitLabel);
+        cg.addLabel(elseLabel);
+        c.getElseStatements().forEach( s -> s.accept(this, null));
+        cg.addLabel(exitLabel);
         return null;
     }
 }

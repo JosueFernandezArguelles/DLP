@@ -44,4 +44,13 @@ public class RecordType extends AbstractType{
     public int getNumberOfBytes() {
         return this.fields.stream().mapToInt( rf -> rf.getType().getNumberOfBytes() ).sum();
     }
+
+    public Field getField(String fieldName) {
+        for (Field f : fields){
+            if(f.getName().equals(fieldName)){
+                return f;
+            }
+        }
+        return null;
+    }
 }

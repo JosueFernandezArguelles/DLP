@@ -52,6 +52,14 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void,Void>{
         value[[Cast: exp1 -> type exp2]] = value[[exp2]]
                                            exp2.type.convertTo(type)
 
+        //Lab 12
+        value[[Indexing: exp1 -> exp2 exp3]] = address[[exp1]]
+                                               <load> exp1.type.suffix()
+
+        value[[FieldAccess: exp1 -> exp2 ID]] = address[[exp1]]
+                                                <load> exp1.type.suffix()
+
+
     */
 
     private CodeGenerator cg;
@@ -62,7 +70,7 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void,Void>{
 
     @Override
     public Void visit(IntLiteral i, Void param) {
-        cg.push(i);
+        cg.push(i.getValue());
         return null;
     }
 
@@ -135,6 +143,20 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void,Void>{
     public Void visit(Cast c, Void param){
         c.getExpression().accept(this, param);
         cg.convertTo( c.getExpression().getType(), c.getCastType() );
+        return null;
+    }
+
+    @Override
+    public Void visit(Indexing i, Void param){
+        i.accept(new AddressCGVisitor(cg), param);
+        cg.load(i.getType());
+        return null;
+    }
+
+    @Override
+    public Void visit(FieldAccess f, Void param){
+        f.accept(new AddressCGVisitor(cg), param);
+        cg.load(f.getType());
         return null;
     }
 }

@@ -17,6 +17,17 @@ public class AddressCGVisitor extends AbstractCGVisitor<Void, Void> {
                                             <pushi> exp.definition.offset
                                             <addi>
                                          }
+
+         //Lab 12
+         address[[Indexing: exp1 -> exp2 exp3]] = address[[exp2]]
+                                                  value[[exp3]]
+                                                  <pushi> exp1.type.getNumberOfBytes()
+                                                  <muli>
+                                                  <addi>
+
+          address[[FieldAccess: exp1 -> exp2 ID]] = address[[exp2]]
+                                                    <pushi> exp2.type.getField(ID).offset
+                                                    <addi>
     */
 
     private CodeGenerator cg;
@@ -28,6 +39,24 @@ public class AddressCGVisitor extends AbstractCGVisitor<Void, Void> {
     @Override
     public Void visit(Variable v, Void param) {
         cg.pushAddress( v );
+        return null;
+    }
+
+    @Override
+    public Void visit(Indexing i, Void param) {
+        i.getVariable().accept(this, param);
+        i.getIndex().accept(new ValueCGVisitor(cg), null);
+        cg.push(((ArrayType)i.getType()).getType().getNumberOfBytes());
+        cg.muli();
+        cg.addi();
+        return null;
+    }
+
+    @Override
+    public Void visit(FieldAccess f, Void param) {
+        f.getExpression().accept(this, param);
+        cg.push(((RecordType)f.getExpression().getType()).getField(f.getFieldName()).getOffset());
+        cg.addi();
         return null;
     }
 }

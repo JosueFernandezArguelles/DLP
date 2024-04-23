@@ -15,6 +15,7 @@ public class CodeGenerator {
 
     FileWriter outputFile;
     String code = "";
+    int labels = 0;
 
     public CodeGenerator(String outputFile){
         try {
@@ -68,8 +69,8 @@ public class CodeGenerator {
         }
     }
 
-    public void push(IntLiteral i) {
-        code += "pushi " + i.getValue() + " \n";
+    public void push(int i) {
+        code += "pushi " + i + " \n";
     }
 
     public void push(DoubleLiteral d) {
@@ -133,5 +134,27 @@ public class CodeGenerator {
         }
     }
 
+    public String nextLabel() {
+        return "label" + this.labels++;
+    }
 
+    public void addLabel(String label) {
+        code += label + ": \n";
+    }
+
+    public void jumpZero(String label) {
+        code += "jz " + label + "\n";
+    }
+
+    public void jump(String label) {
+        code += "jmp " + label + "\n";
+    }
+
+    public void muli() {
+        code += "muli  \n";
+    }
+
+    public void addi() {
+        code += "addi  \n";
+    }
 }
