@@ -89,6 +89,8 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<BytesDTO, Void>{
 
     @Override
     public Void visit(Read r, BytesDTO fd){
+        cg.addLine(r.getLine());
+        cg.addComment("'* Read: ");
         r.getExpression().accept(new AddressCGVisitor(cg), null);
         cg.in( r.getExpression().getType() );
         cg.store( r.getExpression().getType() );
@@ -97,7 +99,8 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<BytesDTO, Void>{
 
     @Override
     public Void visit(Write w, BytesDTO fd){
-        cg.addComment("'* Write: Line " + w.getLine() );
+        cg.addLine(w.getLine());
+        cg.addComment("'* Write: ");
         w.getExpressions().accept(new ValueCGVisitor(cg), null);
         cg.out(w.getExpressions().getType());
         return null;
@@ -105,6 +108,7 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<BytesDTO, Void>{
 
     @Override
     public Void visit(Assignment a, BytesDTO fd){
+        cg.addLine(a.getLine());
         a.getTarget().accept(new AddressCGVisitor(cg), null);
         a.getValue().accept(new ValueCGVisitor(cg), null);
         cg.store( a.getTarget().getType() );
@@ -119,11 +123,12 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<BytesDTO, Void>{
 
     @Override
     public Void visit(FunctionDefinition fd, BytesDTO param){
+        cg.addLine(fd.getLine());
         cg.tag(fd);
+        cg.addComment("'*Local Variables:");
         fd.getVariables().forEach(v -> v.accept(this, param));
         int bytesLocals = fd.getVariables().isEmpty() ? 0 : -fd.getVariables().get(fd.getVariables().size()-1).getOffset();
         if( bytesLocals != 0 ){
-            cg.addComment("'*Local Variables:");
             cg.enter(bytesLocals);
         }
         int bytesParameters = ((FunctionType)fd.getType()).getParameters().stream().mapToInt(p -> p.getType().getNumberOfBytes()).sum();
@@ -138,6 +143,7 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<BytesDTO, Void>{
 
     @Override
     public Void visit(Program p, BytesDTO param){
+        cg.addComment("'* Main Function:");
         cg.mainFunction();
         p.getDefinitions().forEach( d -> d.accept(this, param) );
         return null;
@@ -147,6 +153,7 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<BytesDTO, Void>{
     public Void visit(While w, BytesDTO param){
         String condLabel = cg.nextLabel();
         String exitLabel = cg.nextLabel();
+        cg.addLine(w.getLine());
         cg.addComment("'*While:");
         cg.addLabel(condLabel);
         w.getCondition().accept(new ValueCGVisitor(cg), null);
@@ -161,6 +168,7 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<BytesDTO, Void>{
     public Void visit(ConditionalStatement c, BytesDTO param){
         String elseLabel = cg.nextLabel();
         String exitLabel = cg.nextLabel();
+        cg.addLine(c.getLine());
         c.getCondition().accept(new ValueCGVisitor(cg), null);
         cg.jumpZero(elseLabel);
         c.getIfStatements().forEach(s -> s.accept(this, param));
@@ -173,6 +181,7 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<BytesDTO, Void>{
 
     @Override
     public Void visit(ReturnStatement r, BytesDTO param){
+        cg.addLine(r.getLine());
         r.getExpression().accept(new ValueCGVisitor(cg), null);
         cg.ret(param.getReturnBytes(), param.getLocalBytes(), param.getParamBytes());
         return null;
@@ -180,6 +189,7 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<BytesDTO, Void>{
 
     @Override
     public Void visit(FunctionInvocation f, BytesDTO param){
+        cg.addLine(f.getLine());
         f.getExpressionList().forEach(e -> e.accept(new ValueCGVisitor(cg), null));
         cg.call(f.getVariable().getName());
         Type t = ((FunctionType)f.getVariable().getDefinition().getType()).getReturnType();

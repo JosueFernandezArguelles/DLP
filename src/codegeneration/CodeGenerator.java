@@ -73,12 +73,12 @@ public class CodeGenerator {
         code += "pushi " + i + " \n";
     }
 
-    public void push(DoubleLiteral d) {
-        code += "pushf " + d.getValue() + " \n";
+    public void push(double d) {
+        code += "pushf " + d + " \n";
     }
 
-    public void push(CharacterLiteral c) {
-        code += "pushb " + (int) c.getValue() + " \n";
+    public void push(char c) {
+        code += "pushb " + (int) c + " \n";
     }
 
     public void load(Type type) {
@@ -122,7 +122,7 @@ public class CodeGenerator {
     }
 
     public void mainFunction() {
-        code += "call main \nhalt \n'* Global Variables: \n";
+        code += "call main \nhalt \n \n'* Global Variables: \n";
     }
 
     public void write(){
@@ -164,5 +164,9 @@ public class CodeGenerator {
 
     public void pop(Type t) {
         code += "pop" + t.suffix() + "\n";
+    }
+
+    public void addLine(int line) {
+        code += "\n" + "'*Line: " + line + "\n";
     }
 }

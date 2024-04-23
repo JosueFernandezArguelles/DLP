@@ -1,20 +1,31 @@
+'* Main Function: 
 call main 
 halt 
+ 
 '* Global Variables: 
 '*RecordType{[int integer, char character]} pair (offset 0) 
 '*RecordType{[RecordType{[int age]} [2]employees]} [2] acme (offset 3) 
 '*int  [3] [8] fibonacci (offset 11) 
+
+'*Line: 14
 p: 
+'*Local Variables: 
 ret 0,0,0 
+
+'*Line: 16
 f: 
+'*Local Variables: 
 '*double  real (offset -4) 
 '*char  c (offset -5) 
 '*int  result (offset -7) 
-'*Local Variables: 
 enter 7 
+
+'*Line: 20
 push bp 
 pushi -4
 addi 
+
+'*Line: 20
 push bp 
 pushi 6
 addi 
@@ -22,11 +33,17 @@ loadf
 pushf 10.0 
 mulf 
 storef 
+
+'*Line: 21
 push bp 
 pushi -5
 addi 
 pushb 48 
 storeb 
+
+'*Line: 22
+
+'*Line: 22
 push bp 
 pushi 4
 addi 
@@ -34,6 +51,8 @@ loadi
 pushi 256 
 lti 
 jz label0
+
+'*Line: 23
 push bp 
 pushi -5
 addi 
@@ -43,6 +62,8 @@ addi
 loadi 
 i2b 
 storeb 
+
+'*Line: 24
 push bp 
 pushi -7
 addi 
@@ -54,6 +75,8 @@ b2i
 storei 
 jmp label1
 label0: 
+
+'*Line: 27
 push bp 
 pushi -7
 addi 
@@ -64,15 +87,21 @@ loadf
 f2i 
 storei 
 label1: 
+
+'*Line: 28
 push bp 
 pushi -7
 addi 
 loadi 
 ret 2,7,6 
+
+'*Line: 31
 initialize: 
-'*int  i (offset -2) 
 '*Local Variables: 
+'*int  i (offset -2) 
 enter 2 
+
+'*Line: 33
 pusha 11 
 pushi 0 
 pushi 6 
@@ -84,6 +113,8 @@ muli
 addi  
 pushi 0 
 storei 
+
+'*Line: 34
 pusha 11 
 pushi 0 
 pushi 6 
@@ -95,6 +126,8 @@ muli
 addi  
 pushi 1 
 storei 
+
+'*Line: 35
 pusha 11 
 pushi 0 
 pushi 6 
@@ -106,13 +139,19 @@ muli
 addi  
 pushi 1 
 storei 
+
+'*Line: 36
 push bp 
 pushi -2
 addi 
 pushi 1 
 storei 
+
+'*Line: 37
 '*While: 
 label2: 
+
+'*Line: 37
 push bp 
 pushi -2
 addi 
@@ -120,6 +159,8 @@ loadi
 pushi 8 
 lti 
 jz label3
+
+'*Line: 38
 pusha 11 
 push bp 
 pushi -2
@@ -133,6 +174,8 @@ pushi 2
 muli  
 addi  
 pusha 11 
+
+'*Line: 38
 push bp 
 pushi -2
 addi 
@@ -148,6 +191,8 @@ muli
 addi  
 loadi 
 storei 
+
+'*Line: 39
 pusha 11 
 push bp 
 pushi -2
@@ -161,6 +206,8 @@ pushi 2
 muli  
 addi  
 pusha 11 
+
+'*Line: 39
 push bp 
 pushi -2
 addi 
@@ -176,6 +223,8 @@ muli
 addi  
 loadi 
 storei 
+
+'*Line: 40
 pusha 11 
 push bp 
 pushi -2
@@ -188,6 +237,8 @@ pushi 2
 pushi 2 
 muli  
 addi  
+
+'*Line: 40
 pusha 11 
 push bp 
 pushi -2
@@ -216,9 +267,13 @@ addi
 loadi 
 addi 
 storei 
+
+'*Line: 41
 push bp 
 pushi -2
 addi 
+
+'*Line: 41
 push bp 
 pushi -2
 addi 
@@ -229,29 +284,43 @@ storei
 jmp label2
 label3: 
 ret 0,2,0 
+
+'*Line: 47
 main: 
+'*Local Variables: 
 '*int  i (offset -2) 
 '*int  j (offset -4) 
-'*Local Variables: 
 enter 4 
+
+'*Line: 49
 call p
+
+'*Line: 50
 push bp 
 pushi -2
 addi 
 pushi 0 
 storei 
+
+'*Line: 51
 pusha 0 
 pushi 2 
 addi  
 pushb 48 
 storeb 
+
+'*Line: 52
 pusha 0 
 pushi 0 
 addi  
 pushb 48 
 b2i 
 storei 
-'* Write: Line 55 
+
+'*Line: 55
+'* Write:  
+
+'*Line: 55
 push bp 
 pushi -2
 addi 
@@ -264,21 +333,33 @@ loadb
 b2i 
 call f
 outi 
-'* Write: Line 55 
+
+'*Line: 55
+'* Write:  
 pushb 10 
 outb 
+
+'*Line: 56
 pushf 1.3 
 pushi 2 
 call f
 popi
+
+'*Line: 58
 call initialize
+
+'*Line: 59
 push bp 
 pushi -2
 addi 
 pushi 0 
 storei 
+
+'*Line: 60
 '*While: 
 label4: 
+
+'*Line: 60
 push bp 
 pushi -2
 addi 
@@ -286,10 +367,16 @@ loadi
 pushi 8 
 lti 
 jz label5
-'* Write: Line 62 
+
+'*Line: 62
+'* Write:  
 pushb 40 
 outb 
-'* Write: Line 62 
+
+'*Line: 62
+'* Write:  
+
+'*Line: 62
 push bp 
 pushi -2
 addi 
@@ -297,10 +384,14 @@ loadi
 pushi 1 
 addi 
 outi 
-'* Write: Line 62 
+
+'*Line: 62
+'* Write:  
 pushb 41 
 outb 
-'* Write: Line 62 
+
+'*Line: 62
+'* Write:  
 pusha 11 
 push bp 
 pushi -2
@@ -315,10 +406,14 @@ muli
 addi  
 loadi 
 outi 
-'* Write: Line 62 
+
+'*Line: 62
+'* Write:  
 pushb 43 
 outb 
-'* Write: Line 62 
+
+'*Line: 62
+'* Write:  
 pusha 11 
 push bp 
 pushi -2
@@ -333,10 +428,14 @@ muli
 addi  
 loadi 
 outi 
-'* Write: Line 62 
+
+'*Line: 62
+'* Write:  
 pushb 61 
 outb 
-'* Write: Line 62 
+
+'*Line: 62
+'* Write:  
 pusha 11 
 push bp 
 pushi -2
@@ -351,12 +450,18 @@ muli
 addi  
 loadi 
 outi 
-'* Write: Line 62 
+
+'*Line: 62
+'* Write:  
 pushb 10 
 outb 
+
+'*Line: 65
 push bp 
 pushi -2
 addi 
+
+'*Line: 65
 push bp 
 pushi -2
 addi 
@@ -366,6 +471,8 @@ addi
 storei 
 jmp label4
 label5: 
+
+'*Line: 68
 pusha 3 
 pushi 1 
 pushi 4 
@@ -381,7 +488,9 @@ pushi 0
 addi  
 pushi 56 
 storei 
-'* Write: Line 70 
+
+'*Line: 70
+'* Write:  
 pusha 3 
 pushi 1 
 pushi 4 
@@ -397,16 +506,24 @@ pushi 0
 addi  
 loadi 
 outi 
-'* Write: Line 70 
+
+'*Line: 70
+'* Write:  
 pushb 10 
 outb 
+
+'*Line: 71
 push bp 
 pushi -2
 addi 
 pushi 0 
 storei 
+
+'*Line: 72
 '*While: 
 label6: 
+
+'*Line: 72
 push bp 
 pushi -2
 addi 
@@ -414,13 +531,19 @@ loadi
 pushi 2 
 lti 
 jz label7
+
+'*Line: 73
 push bp 
 pushi -4
 addi 
 pushi 0 
 storei 
+
+'*Line: 74
 '*While: 
 label8: 
+
+'*Line: 74
 push bp 
 pushi -4
 addi 
@@ -428,6 +551,8 @@ loadi
 pushi 2 
 lti 
 jz label9
+
+'*Line: 75
 pusha 3 
 push bp 
 pushi -2
@@ -447,6 +572,8 @@ muli
 addi  
 pushi 0 
 addi  
+
+'*Line: 75
 push bp 
 pushi -2
 addi 
@@ -457,9 +584,13 @@ addi
 loadi 
 addi 
 storei 
+
+'*Line: 76
 push bp 
 pushi -4
 addi 
+
+'*Line: 76
 push bp 
 pushi -4
 addi 
@@ -469,9 +600,13 @@ addi
 storei 
 jmp label8
 label9: 
+
+'*Line: 78
 push bp 
 pushi -2
 addi 
+
+'*Line: 78
 push bp 
 pushi -2
 addi 
@@ -481,13 +616,19 @@ addi
 storei 
 jmp label6
 label7: 
+
+'*Line: 82
 push bp 
 pushi -2
 addi 
 pushi 0 
 storei 
+
+'*Line: 83
 '*While: 
 label10: 
+
+'*Line: 83
 push bp 
 pushi -2
 addi 
@@ -495,13 +636,19 @@ loadi
 pushi 2 
 lti 
 jz label11
+
+'*Line: 84
 push bp 
 pushi -4
 addi 
 pushi 0 
 storei 
+
+'*Line: 85
 '*While: 
 label12: 
+
+'*Line: 85
 push bp 
 pushi -4
 addi 
@@ -509,7 +656,9 @@ loadi
 pushi 2 
 lti 
 jz label13
-'* Write: Line 87 
+
+'*Line: 87
+'* Write:  
 pusha 3 
 push bp 
 pushi -2
@@ -531,12 +680,18 @@ pushi 0
 addi  
 loadi 
 outi 
-'* Write: Line 87 
+
+'*Line: 87
+'* Write:  
 pushb 32 
 outb 
+
+'*Line: 88
 push bp 
 pushi -4
 addi 
+
+'*Line: 88
 push bp 
 pushi -4
 addi 
@@ -546,9 +701,13 @@ addi
 storei 
 jmp label12
 label13: 
+
+'*Line: 90
 push bp 
 pushi -2
 addi 
+
+'*Line: 90
 push bp 
 pushi -2
 addi 

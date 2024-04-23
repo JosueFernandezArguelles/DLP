@@ -80,13 +80,13 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void,Void>{
 
     @Override
     public Void visit(DoubleLiteral d, Void param) {
-        cg.push(d);
+        cg.push(d.getValue());
         return null;
     }
 
     @Override
     public Void visit(CharacterLiteral c, Void param) {
-        cg.push(c);
+        cg.push(c.getValue());
         return null;
     }
 
@@ -99,6 +99,7 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void,Void>{
 
     @Override
     public Void visit(Arithmetic a, Void param){
+        cg.addLine(a.getLine());
         a.getLeft().accept(this, param);
         cg.convertTo(a.getLeft().getType(), a.getType());
         a.getRight().accept(this, param);
@@ -109,6 +110,7 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void,Void>{
 
     @Override
     public Void visit(Modulus m, Void param){
+        cg.addLine(m.getLine());
         m.getLeft().accept(this, param);
         cg.convertTo(m.getLeft().getType(), m.getType());
         m.getRight().accept(this, param);
@@ -119,6 +121,7 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void,Void>{
 
     @Override
     public Void visit(Comparation c, Void param){
+        cg.addLine(c.getLine());
         Type superType = c.getLeft().getType().superType(c.getType());
         c.getLeft().accept(this, param);
         cg.convertTo( c.getLeft().getType(), superType );
@@ -130,6 +133,7 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void,Void>{
 
     @Override
     public Void visit(Logical l, Void param){
+        cg.addLine(l.getLine());
         l.getLeft().accept(this, param);
         l.getRight().accept(this, param);
         cg.logical(l.getOperator());
@@ -166,6 +170,7 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void,Void>{
 
     @Override
     public Void visit(FunctionInvocation f, Void param){
+        cg.addLine(f.getLine());
         f.getExpressionList().forEach( e -> e.accept(this, param) );
         cg.call(f.getVariable().getName());
         return null;
