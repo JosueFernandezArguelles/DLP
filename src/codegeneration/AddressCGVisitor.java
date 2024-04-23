@@ -46,7 +46,7 @@ public class AddressCGVisitor extends AbstractCGVisitor<Void, Void> {
     public Void visit(Indexing i, Void param) {
         i.getVariable().accept(this, param);
         i.getIndex().accept(new ValueCGVisitor(cg), null);
-        cg.push(((ArrayType)i.getType()).getType().getNumberOfBytes());
+        cg.push(((ArrayType)i.getVariable().getType()).getType().getNumberOfBytes());
         cg.muli();
         cg.addi();
         return null;
