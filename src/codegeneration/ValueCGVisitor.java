@@ -59,6 +59,10 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void,Void>{
         value[[FieldAccess: exp1 -> exp2 ID]] = address[[exp1]]
                                                 <load> exp1.type.suffix()
 
+        //Lab 13
+        value[[FunctionInvocation: stm -> exp exp*]] = exp*.forEach( e -> value[[e]] )
+                                                            <call> exp.name
+
 
     */
 
@@ -157,6 +161,13 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void,Void>{
     public Void visit(FieldAccess f, Void param){
         f.accept(new AddressCGVisitor(cg), param);
         cg.load(f.getType());
+        return null;
+    }
+
+    @Override
+    public Void visit(FunctionInvocation f, Void param){
+        f.getExpressionList().forEach( e -> e.accept(this, param) );
+        cg.call(f.getVariable().getName());
         return null;
     }
 }

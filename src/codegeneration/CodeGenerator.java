@@ -157,4 +157,12 @@ public class CodeGenerator {
     public void addi() {
         code += "addi  \n";
     }
+
+    public void call(String name) {
+        code += "call " + name + "\n";
+    }
+
+    public void pop(Type t) {
+        code += "pop " + t.suffix() + "\n";
+    }
 }
