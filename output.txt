@@ -3,277 +3,268 @@ call main
 halt 
  
 '* Global Variables: 
-'*RecordType{[int integer, char character]} pair (offset 0) 
-'*RecordType{[RecordType{[int age]} [2]employees]} [2] acme (offset 3) 
-'*int  [3] [8] fibonacci (offset 11) 
+'*int  i (offset 0) 
+'*int  n (offset 2) 
+'*int  j (offset 4) 
+'*char  c (offset 6) 
+'*RecordType{[int integer, char character]} pair (offset 7) 
 
-'*Line: 14
+'*Line: 12
 p: 
 '*Local Variables: 
 ret 0,0,0 
 
-'*Line: 16
+'*Line: 14
 f: 
 '*Local Variables: 
 '*double  real (offset -4) 
 '*char  c (offset -5) 
-'*int  result (offset -7) 
-enter 7 
+enter 5 
 
-'*Line: 20
+'*Line: 17
 push bp 
 pushi -4
 addi 
 
-'*Line: 20
+'*Line: 17
+
+'*Line: 17
+
+'*Line: 17
+pusha 7 
+pushi 2 
+addi  
+loadb 
+b2i 
+i2f 
+pusha 7 
+pushi 0 
+addi  
+loadi 
+i2f 
+addf 
 push bp 
 pushi 6
 addi 
 loadf 
-pushf 10.0 
-mulf 
+addf 
+push bp 
+pushi 4
+addi 
+loadi 
+i2f 
+addf 
 storef 
 
-'*Line: 21
+'*Line: 18
 push bp 
 pushi -5
 addi 
 pushb 48 
 storeb 
 
-'*Line: 22
-
-'*Line: 22
-push bp 
-pushi 4
-addi 
-loadi 
-pushi 256 
-lti 
-jz label0
-
-'*Line: 23
-push bp 
-pushi -5
-addi 
-push bp 
-pushi 4
-addi 
-loadi 
-i2b 
-storeb 
-
-'*Line: 24
-push bp 
-pushi -7
-addi 
+'*Line: 19
 push bp 
 pushi -5
 addi 
 loadb 
 b2i 
+ret 2,5,6 
+'*int  [10] [10] matrix (offset 10) 
+
+'*Line: 24
+fill: 
+'*Local Variables: 
+'*int  i (offset -2) 
+'*int  inc (offset -4) 
+enter 4 
+
+'*Line: 26
+push bp 
+pushi -2
+addi 
+pushi 0 
 storei 
-jmp label1
-label0: 
 
 '*Line: 27
 push bp 
-pushi -7
-addi 
-push bp 
 pushi -4
 addi 
-loadf 
-f2i 
+push bp 
+pushi 4
+addi 
+loadi 
 storei 
-label1: 
+
+'*Line: 28
+'*While: 
+label0: 
 
 '*Line: 28
 push bp 
-pushi -7
+pushi -2
 addi 
 loadi 
-ret 2,7,6 
+pushi 10 
+lti 
+jz label1
+
+'*Line: 29
+pusha 10 
+push bp 
+pushi 8
+addi 
+loadi 
+pushi 20 
+muli  
+addi  
+push bp 
+pushi -2
+addi 
+loadi 
+pushi 2 
+muli  
+addi  
+
+'*Line: 29
+push bp 
+pushi 6
+addi 
+loadi 
+push bp 
+pushi -4
+addi 
+loadi 
+addi 
+storei 
+
+'*Line: 30
+push bp 
+pushi -2
+addi 
+
+'*Line: 30
+push bp 
+pushi -2
+addi 
+loadi 
+pushi 1 
+addi 
+storei 
 
 '*Line: 31
-initialize: 
+push bp 
+pushi -4
+addi 
+
+'*Line: 31
+push bp 
+pushi -4
+addi 
+loadi 
+push bp 
+pushi 4
+addi 
+loadi 
+addi 
+storei 
+jmp label0
+label1: 
+ret 0,4,6 
+
+'*Line: 35
+show: 
 '*Local Variables: 
 '*int  i (offset -2) 
 enter 2 
 
-'*Line: 33
-pusha 11 
-pushi 0 
-pushi 6 
-muli  
-addi  
-pushi 0 
-pushi 2 
-muli  
-addi  
-pushi 0 
-storei 
-
-'*Line: 34
-pusha 11 
-pushi 0 
-pushi 6 
-muli  
-addi  
-pushi 1 
-pushi 2 
-muli  
-addi  
-pushi 1 
-storei 
-
-'*Line: 35
-pusha 11 
-pushi 0 
-pushi 6 
-muli  
-addi  
-pushi 2 
-pushi 2 
-muli  
-addi  
-pushi 1 
-storei 
-
-'*Line: 36
+'*Line: 37
 push bp 
 pushi -2
 addi 
-pushi 1 
+pushi 0 
 storei 
 
-'*Line: 37
+'*Line: 38
 '*While: 
 label2: 
 
-'*Line: 37
+'*Line: 38
 push bp 
 pushi -2
 addi 
 loadi 
-pushi 8 
+pushi 10 
 lti 
 jz label3
 
-'*Line: 38
-pusha 11 
-push bp 
-pushi -2
-addi 
-loadi 
-pushi 6 
-muli  
-addi  
-pushi 0 
-pushi 2 
-muli  
-addi  
-pusha 11 
-
-'*Line: 38
-push bp 
-pushi -2
-addi 
-loadi 
-pushi 1 
-subi 
-pushi 6 
-muli  
-addi  
-pushi 1 
-pushi 2 
-muli  
-addi  
-loadi 
-storei 
+'*Line: 39
+'* Write:  
+pushb 40 
+outb 
 
 '*Line: 39
-pusha 11 
+'* Write:  
 push bp 
-pushi -2
+pushi 4
 addi 
 loadi 
-pushi 6 
-muli  
-addi  
-pushi 1 
-pushi 2 
-muli  
-addi  
-pusha 11 
+outi 
 
 '*Line: 39
+'* Write:  
+pushb 44 
+outb 
+
+'*Line: 39
+'* Write:  
 push bp 
 pushi -2
 addi 
 loadi 
-pushi 1 
-subi 
-pushi 6 
+outi 
+
+'*Line: 39
+'* Write:  
+pushb 41 
+outb 
+
+'*Line: 39
+'* Write:  
+pushb 58 
+outb 
+
+'*Line: 39
+'* Write:  
+pusha 10 
+push bp 
+pushi 4
+addi 
+loadi 
+pushi 20 
 muli  
 addi  
-pushi 2 
+push bp 
+pushi -2
+addi 
+loadi 
 pushi 2 
 muli  
 addi  
 loadi 
-storei 
+outi 
+
+'*Line: 39
+'* Write:  
+pushb 32 
+outb 
 
 '*Line: 40
-pusha 11 
 push bp 
 pushi -2
 addi 
-loadi 
-pushi 6 
-muli  
-addi  
-pushi 2 
-pushi 2 
-muli  
-addi  
 
 '*Line: 40
-pusha 11 
-push bp 
-pushi -2
-addi 
-loadi 
-pushi 6 
-muli  
-addi  
-pushi 0 
-pushi 2 
-muli  
-addi  
-loadi 
-pusha 11 
-push bp 
-pushi -2
-addi 
-loadi 
-pushi 6 
-muli  
-addi  
-pushi 1 
-pushi 2 
-muli  
-addi  
-loadi 
-addi 
-storei 
-
-'*Line: 41
-push bp 
-pushi -2
-addi 
-
-'*Line: 41
 push bp 
 pushi -2
 addi 
@@ -283,50 +274,54 @@ addi
 storei 
 jmp label2
 label3: 
-ret 0,2,0 
+
+'*Line: 42
+'* Write:  
+pushb 10 
+outb 
+ret 0,2,2 
 
 '*Line: 47
 main: 
 '*Local Variables: 
 '*int  i (offset -2) 
-'*int  j (offset -4) 
-enter 4 
-
-'*Line: 49
-call p
+enter 2 
 
 '*Line: 50
+call p
+
+'*Line: 51
 push bp 
 pushi -2
 addi 
 pushi 0 
 storei 
 
-'*Line: 51
-pusha 0 
+'*Line: 52
+pusha 7 
 pushi 2 
 addi  
 pushb 48 
 storeb 
 
-'*Line: 52
-pusha 0 
+'*Line: 53
+pusha 7 
 pushi 0 
 addi  
 pushb 48 
 b2i 
 storei 
 
-'*Line: 55
+'*Line: 54
 '* Write:  
 
-'*Line: 55
+'*Line: 54
 push bp 
 pushi -2
 addi 
 loadi 
 i2f 
-pusha 0 
+pusha 7 
 pushi 2 
 addi  
 loadb 
@@ -334,7 +329,7 @@ b2i
 call f
 outi 
 
-'*Line: 55
+'*Line: 54
 '* Write:  
 pushb 10 
 outb 
@@ -346,12 +341,14 @@ call f
 popi
 
 '*Line: 58
-call initialize
-
-'*Line: 59
 push bp 
 pushi -2
 addi 
+pushi 0 
+storei 
+
+'*Line: 59
+pusha 4 
 pushi 0 
 storei 
 
@@ -364,357 +361,52 @@ push bp
 pushi -2
 addi 
 loadi 
-pushi 8 
+pushi 10 
 lti 
 jz label5
 
-'*Line: 62
-'* Write:  
-pushb 40 
-outb 
+'*Line: 61
+push bp 
+pushi -2
+addi 
+loadi 
+pusha 4 
+loadi 
+pushi 1 
+call fill
 
 '*Line: 62
-'* Write:  
+push bp 
+pushi -2
+addi 
+loadi 
+call show
 
-'*Line: 62
+'*Line: 63
+push bp 
+pushi -2
+addi 
+
+'*Line: 63
 push bp 
 pushi -2
 addi 
 loadi 
 pushi 1 
 addi 
-outi 
+storei 
 
-'*Line: 62
-'* Write:  
-pushb 41 
-outb 
+'*Line: 64
+pusha 4 
 
-'*Line: 62
-'* Write:  
-pusha 11 
+'*Line: 64
 push bp 
 pushi -2
 addi 
 loadi 
-pushi 6 
-muli  
-addi  
-pushi 0 
-pushi 2 
-muli  
-addi  
-loadi 
-outi 
-
-'*Line: 62
-'* Write:  
-pushb 43 
-outb 
-
-'*Line: 62
-'* Write:  
-pusha 11 
-push bp 
-pushi -2
-addi 
-loadi 
-pushi 6 
-muli  
-addi  
-pushi 1 
-pushi 2 
-muli  
-addi  
-loadi 
-outi 
-
-'*Line: 62
-'* Write:  
-pushb 61 
-outb 
-
-'*Line: 62
-'* Write:  
-pusha 11 
-push bp 
-pushi -2
-addi 
-loadi 
-pushi 6 
-muli  
-addi  
-pushi 2 
-pushi 2 
-muli  
-addi  
-loadi 
-outi 
-
-'*Line: 62
-'* Write:  
-pushb 10 
-outb 
-
-'*Line: 65
-push bp 
-pushi -2
-addi 
-
-'*Line: 65
-push bp 
-pushi -2
-addi 
-loadi 
-pushi 1 
-addi 
+pushi 10 
+muli 
 storei 
 jmp label4
 label5: 
-
-'*Line: 68
-pusha 3 
-pushi 1 
-pushi 4 
-muli  
-addi  
-pushi 0 
-addi  
-pushi 1 
-pushi 2 
-muli  
-addi  
-pushi 0 
-addi  
-pushi 56 
-storei 
-
-'*Line: 70
-'* Write:  
-pusha 3 
-pushi 1 
-pushi 4 
-muli  
-addi  
-pushi 0 
-addi  
-pushi 1 
-pushi 2 
-muli  
-addi  
-pushi 0 
-addi  
-loadi 
-outi 
-
-'*Line: 70
-'* Write:  
-pushb 10 
-outb 
-
-'*Line: 71
-push bp 
-pushi -2
-addi 
-pushi 0 
-storei 
-
-'*Line: 72
-'*While: 
-label6: 
-
-'*Line: 72
-push bp 
-pushi -2
-addi 
-loadi 
-pushi 2 
-lti 
-jz label7
-
-'*Line: 73
-push bp 
-pushi -4
-addi 
-pushi 0 
-storei 
-
-'*Line: 74
-'*While: 
-label8: 
-
-'*Line: 74
-push bp 
-pushi -4
-addi 
-loadi 
-pushi 2 
-lti 
-jz label9
-
-'*Line: 75
-pusha 3 
-push bp 
-pushi -2
-addi 
-loadi 
-pushi 4 
-muli  
-addi  
-pushi 0 
-addi  
-push bp 
-pushi -4
-addi 
-loadi 
-pushi 2 
-muli  
-addi  
-pushi 0 
-addi  
-
-'*Line: 75
-push bp 
-pushi -2
-addi 
-loadi 
-push bp 
-pushi -4
-addi 
-loadi 
-addi 
-storei 
-
-'*Line: 76
-push bp 
-pushi -4
-addi 
-
-'*Line: 76
-push bp 
-pushi -4
-addi 
-loadi 
-pushi 1 
-addi 
-storei 
-jmp label8
-label9: 
-
-'*Line: 78
-push bp 
-pushi -2
-addi 
-
-'*Line: 78
-push bp 
-pushi -2
-addi 
-loadi 
-pushi 1 
-addi 
-storei 
-jmp label6
-label7: 
-
-'*Line: 82
-push bp 
-pushi -2
-addi 
-pushi 0 
-storei 
-
-'*Line: 83
-'*While: 
-label10: 
-
-'*Line: 83
-push bp 
-pushi -2
-addi 
-loadi 
-pushi 2 
-lti 
-jz label11
-
-'*Line: 84
-push bp 
-pushi -4
-addi 
-pushi 0 
-storei 
-
-'*Line: 85
-'*While: 
-label12: 
-
-'*Line: 85
-push bp 
-pushi -4
-addi 
-loadi 
-pushi 2 
-lti 
-jz label13
-
-'*Line: 87
-'* Write:  
-pusha 3 
-push bp 
-pushi -2
-addi 
-loadi 
-pushi 4 
-muli  
-addi  
-pushi 0 
-addi  
-push bp 
-pushi -4
-addi 
-loadi 
-pushi 2 
-muli  
-addi  
-pushi 0 
-addi  
-loadi 
-outi 
-
-'*Line: 87
-'* Write:  
-pushb 32 
-outb 
-
-'*Line: 88
-push bp 
-pushi -4
-addi 
-
-'*Line: 88
-push bp 
-pushi -4
-addi 
-loadi 
-pushi 1 
-addi 
-storei 
-jmp label12
-label13: 
-
-'*Line: 90
-push bp 
-pushi -2
-addi 
-
-'*Line: 90
-push bp 
-pushi -2
-addi 
-loadi 
-pushi 1 
-addi 
-storei 
-jmp label10
-label11: 
-ret 0,4,0 
+ret 0,2,0 

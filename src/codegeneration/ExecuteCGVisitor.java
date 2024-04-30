@@ -78,7 +78,7 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<BytesDTO, Void>{
 
         execute[[ReturnStatement: stm -> exp]](int bytesLocal, int bytesParam, int bytesReturn) =
                                                             value[[exp]]
-                                                            <ret> bytesLocal, bytesParam, bytesReturn
+                                                            <ret> bytesReturn <,> bytesLocal <,> bytesParam
     */
 
     private CodeGenerator cg;
