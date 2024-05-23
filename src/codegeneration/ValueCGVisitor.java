@@ -1,6 +1,7 @@
 package codegeneration;
 
 import ast.expression.*;
+import ast.type.IntegerType;
 import ast.type.Type;
 
 public class ValueCGVisitor extends AbstractCGVisitor<Void,Void>{
@@ -51,6 +52,13 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void,Void>{
 
         value[[Cast: exp1 -> type exp2]] = value[[exp2]]
                                            exp2.type.convertTo(type)
+
+        value[[UnaryMinus: exp1 -> exp2]] = Type super = exp2.type( new IntType() )
+                                            <pushi> 0
+                                            IntType().convertTo(super)
+                                            value[[exp2]]
+                                            exp2.type.convertTo(super)
+                                            <sub> super.suffix()
 
         //Lab 12
         value[[Indexing: exp1 -> exp2 exp3]] = address[[exp1]]
@@ -173,6 +181,17 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void,Void>{
         cg.addLine(f.getLine());
         f.getExpressionList().forEach( e -> e.accept(this, param) );
         cg.call(f.getVariable().getName());
+        return null;
+    }
+
+    @Override
+    public Void visit(UnaryMinus u, Void param){
+        Type superType = u.getType().superType(u.getExpression().getType());
+        cg.push(0);
+        cg.convertTo( new IntegerType(0,0), superType );
+        u.getExpression().accept(this, param);
+        cg.convertTo( u.getExpression().getType(), superType );
+        cg.arithmetic("-", superType);
         return null;
     }
 }
