@@ -186,12 +186,11 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void,Void>{
 
     @Override
     public Void visit(UnaryMinus u, Void param){
-        Type superType = u.getType().superType(u.getExpression().getType());
         cg.push(0);
-        cg.convertTo( new IntegerType(0,0), superType );
+        cg.convertTo( new IntegerType(), u.getType() );
         u.getExpression().accept(this, param);
-        cg.convertTo( u.getExpression().getType(), superType );
-        cg.arithmetic("-", superType);
+        cg.convertTo( u.getExpression().getType(), u.getType() );
+        cg.arithmetic("-", u.getType());
         return null;
     }
 }

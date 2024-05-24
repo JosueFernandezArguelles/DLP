@@ -8,6 +8,10 @@ public class IntegerType extends AbstractType{
         super(line, column);
     }
 
+    public IntegerType() {
+        super(0,0);
+    }
+
     @Override
     public String toString() {
         return "int ";
