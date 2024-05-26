@@ -113,8 +113,8 @@ variableDefinitions returns [List<VariableDefinition> ast = new ArrayList<Variab
              (','ID2 = ID {$ast.add(new VariableDefinition($t.ast.getLine(), $t.ast.getColumn(), $t.ast, $ID2.text, 0));})* ';'
             ;
 
-elseStatement returns [List<Statement> ast]:
-              'else' body {$ast = $body.ast;}
+elseStatement returns [List<Statement> ast = new ArrayList<>()]:
+              'else' body {$ast.addAll( $body.ast );}
              |
              ;
 

@@ -17,9 +17,8 @@ public class ConditionalStatement extends AbstractStatement {
                                 List<Statement> elseStatements) {
         super(line, column);
         this.ifStatements = new ArrayList<>(ifStatements);
-        if( elseStatements != null ){
-            this.elseStatements = new ArrayList<>(elseStatements);
-        }
+        this.elseStatements = new ArrayList<>(elseStatements);
+
         this.condition = condition;
     }
 

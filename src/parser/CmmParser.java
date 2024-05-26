@@ -955,7 +955,7 @@ public class CmmParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class ElseStatementContext extends ParserRuleContext {
-		public List<Statement> ast;
+		public List<Statement> ast = new ArrayList<>();
 		public BodyContext body;
 		public BodyContext body() {
 			return getRuleContext(BodyContext.class,0);
@@ -980,7 +980,7 @@ public class CmmParser extends Parser {
 				match(T__31);
 				setState(223);
 				((ElseStatementContext)_localctx).body = body();
-				((ElseStatementContext)_localctx).ast =  ((ElseStatementContext)_localctx).body.ast;
+				_localctx.ast.addAll( ((ElseStatementContext)_localctx).body.ast );
 				}
 				break;
 			case 2:
