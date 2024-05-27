@@ -1,11 +1,9 @@
 package codegeneration;
 
-import ast.expression.CharacterLiteral;
-import ast.expression.DoubleLiteral;
-import ast.expression.IntLiteral;
-import ast.expression.Variable;
+import ast.expression.*;
 import ast.program.FunctionDefinition;
 import ast.program.VariableDefinition;
+import ast.type.CharType;
 import ast.type.Type;
 
 import java.io.FileWriter;
@@ -168,5 +166,13 @@ public class CodeGenerator {
 
     public void addLine(int line) {
         code += "\n" + "'*Line: " + line + "\n";
+    }
+
+    public void trueFalse() {
+        code += "";
+    }
+
+    public void outChar() {
+        code += "outb " + " \n";
     }
 }

@@ -136,6 +136,7 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void,Void>{
         c.getRight().accept(this, param);
         cg.convertTo( c.getRight().getType(), superType );
         cg.comparison( c.getOperator(), superType );
+        cg.trueFalse();
         return null;
     }
 

@@ -48,7 +48,7 @@ public class CharType extends AbstractType{
             return t;
         }
 
-        return t instanceof CharType ? new IntegerType(this.getLine(), this.getColumn()) :
+        return t instanceof CharType ? new BooleanType(this.getLine(), this.getColumn()) :
                 new ErrorType(this.getLine(), this.getColumn(),
                         String.format( "%s can not be compared to %s", t.toString(), this ));
     }
@@ -115,8 +115,9 @@ public class CharType extends AbstractType{
         } else if (t instanceof DoubleType) {
             return "b2i \ni2f \n";
         } else {
-            throw new UnsupportedOperationException(String.format("Wrong conversion from %s to %s", this, t.toString()));
+            //throw new UnsupportedOperationException(String.format("Wrong conversion from %s to %s", this, t.toString()));
         }
+        return "";
     }
 
     @Override

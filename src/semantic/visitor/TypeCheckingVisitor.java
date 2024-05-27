@@ -88,7 +88,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type, Void>{
     public Void visit(Comparation c, Type param) {
         super.visit(c, param);
         c.setLvalue(false);
-        c.setType( c.getLeft().getType().comparation(c.getRight().getType()) );
+        c.setType( c.getLeft().getType().comparation( c.getRight().getType() ) );
         return null;
     }
 
@@ -141,6 +141,8 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type, Void>{
     public Void visit(Logical l, Type param) {
         super.visit(l, param);
         l.setLvalue(false);
+        l.getLeft().getType().mustBeBoolean();
+        l.getRight().getType().mustBeBoolean();
         l.setType( l.getLeft().getType().logical(l.getRight().getType()) );
         return null;
     }

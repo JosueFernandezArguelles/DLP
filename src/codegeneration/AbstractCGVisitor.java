@@ -234,4 +234,11 @@ public abstract class AbstractCGVisitor<TP, TR> implements Visitor<TP, TR> {
         throw new UnsupportedOperationException(message);
     }
 
+    @Override
+    public TR visit(BooleanType v, TP param) {
+        String message = "Undefined template for the code function" + this.getClass().getName();
+        assert false: message;
+        throw new UnsupportedOperationException(message);
+    }
+
 }

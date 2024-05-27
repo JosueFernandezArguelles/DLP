@@ -42,7 +42,7 @@ public class DoubleType extends AbstractType{
         if( t instanceof ErrorType ){
             return t;
         }
-        return t instanceof DoubleType ? new IntegerType(this.getLine(), this.getColumn()) :
+        return t instanceof DoubleType ? new BooleanType(t.getLine(), t.getColumn()) :
                 new ErrorType(this.getLine(), this.getColumn(),
                         String.format( "%s can not be compared to %s", t.toString(), this ));
     }

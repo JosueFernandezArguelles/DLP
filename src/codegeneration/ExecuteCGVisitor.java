@@ -5,9 +5,7 @@ import ast.program.FunctionDefinition;
 import ast.program.Program;
 import ast.program.VariableDefinition;
 import ast.statement.*;
-import ast.type.FunctionType;
-import ast.type.Type;
-import ast.type.VoidType;
+import ast.type.*;
 
 public class ExecuteCGVisitor extends AbstractCGVisitor<BytesDTO, Void>{
 
@@ -102,7 +100,38 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<BytesDTO, Void>{
         cg.addLine(w.getLine());
         cg.addComment("'* Write: ");
         w.getExpressions().accept(new ValueCGVisitor(cg), null);
-        cg.out(w.getExpressions().getType());
+        if(w.getExpressions().getType() instanceof BooleanType){
+            String labelFalse = cg.nextLabel();
+            String labelExit = cg.nextLabel();
+            cg.jumpZero(labelFalse);
+            //True
+            cg.push('t');
+            cg.outChar();
+            cg.push('r');
+            cg.outChar();
+            cg.push('u');
+            cg.outChar();
+            cg.push('e');
+            cg.outChar();
+            cg.jump(labelExit);
+
+            //False
+            cg.addLabel(labelFalse);
+            cg.push('f');
+            cg.outChar();
+            cg.push('a');
+            cg.outChar();
+            cg.push('l');
+            cg.outChar();
+            cg.push('s');
+            cg.outChar();
+            cg.push('e');
+            cg.outChar();
+
+            cg.addLabel(labelExit);
+        } else {
+            cg.out(w.getExpressions().getType());
+        }
         return null;
     }
 

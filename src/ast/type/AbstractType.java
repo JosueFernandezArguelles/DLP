@@ -16,7 +16,7 @@ public abstract class AbstractType extends AbstractASTNode implements Type{
             return t;
         }
         return new ErrorType(this.getLine(), this.getColumn(),
-                String.format( "%scan not be used in an arithmetic operation with %s", t.toString(), this ));
+                String.format( "%s can not be used in an arithmetic operation with %s", t.toString(), this ));
     }
 
     @Override
@@ -25,7 +25,7 @@ public abstract class AbstractType extends AbstractASTNode implements Type{
             return t;
         }
         return new ErrorType(this.getLine(), this.getColumn(),
-                String.format( "%scan not be cast to %s", this, t.toString() ));
+                String.format( "%s can not be cast to %s", this, t.toString() ));
     }
 
     @Override
@@ -73,7 +73,7 @@ public abstract class AbstractType extends AbstractASTNode implements Type{
     @Override
     public Type unaryMinus(){
         return new ErrorType(this.getLine(), this.getColumn(),
-                String.format( "%scan not be used for unary minus operations", this));
+                String.format( "%s can not be used for unary minus operations", this));
     }
 
     @Override
@@ -112,6 +112,8 @@ public abstract class AbstractType extends AbstractASTNode implements Type{
 
     @Override
     public void assign(Type t){
+        new ErrorType(this.getLine(), this.getColumn(),
+                String.format( "%s can not be assign", this));
         if( !(t instanceof ErrorType) ){
             new ErrorType(this.getLine(), this.getColumn(),
                     String.format( "%s can not be assign", this));
@@ -125,12 +127,15 @@ public abstract class AbstractType extends AbstractASTNode implements Type{
 
     @Override
     public String suffix(){
-        throw new UnsupportedOperationException( String.format("No suffix for %s type", this));
+        //throw new UnsupportedOperationException( String.format("No suffix for %s type", this));
+        new ErrorType(this.getLine(), this.getColumn(), String.format("No suffix for %s type", this));
+        return "";
     }
 
     @Override
     public String convertTo(Type t){
-        throw new UnsupportedOperationException( String.format("No conversion for %s type", this));
+        //throw new UnsupportedOperationException( String.format("No conversion for %s type", this));
+        return "";
     }
 
     @Override

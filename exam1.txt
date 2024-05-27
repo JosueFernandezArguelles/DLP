@@ -1,0 +1,13 @@
+void main(){
+    int a;
+
+    a = 3;
+    if(a==3 && !(a>4) || a < 0){
+        write  a==3, '\n';
+    }
+
+    while(a<6){
+        write a<4, ' ';
+        a = a + 1;
+    }
+}

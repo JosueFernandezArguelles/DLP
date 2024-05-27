@@ -207,4 +207,9 @@ public abstract class AbstractVisitor<TP, TR> implements Visitor<TP,TR> {
     public TR visit(VoidType v, TP param) {
         return null;
     }
+
+    @Override
+    public TR visit(BooleanType v, TP param) {
+        return null;
+    }
 }

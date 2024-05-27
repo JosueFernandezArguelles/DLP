@@ -52,21 +52,9 @@ public class IntegerType extends AbstractType{
             return t;
         }
 
-        return t instanceof IntegerType ? this :
+        return t instanceof IntegerType ? new BooleanType(t.getLine(), t.getColumn()) :
                 new ErrorType(this.getLine(), this.getColumn(),
                         String.format( "%s can not be compared to %s", t.toString(), this ));
-    }
-
-    @Override
-    public Type logical(Type t) {
-
-        if( t instanceof ErrorType ){
-            return t;
-        }
-
-        return t instanceof IntegerType ? this :
-                new ErrorType(this.getLine(), this.getColumn(),
-                        String.format( "%s and %s can not be used for logical operations", t.toString(), this ));
     }
 
     @Override
@@ -108,8 +96,7 @@ public class IntegerType extends AbstractType{
     public void mustBeReadable() {}
     @Override
     public void mustBeWritable() {}
-    @Override
-    public void mustBeBoolean() {}
+
 
     @Override
     public void returnAs(Type t){
@@ -138,9 +125,12 @@ public class IntegerType extends AbstractType{
             return "";
         } else if (t instanceof DoubleType) {
             return "i2f \n";
+        } else if (t instanceof ErrorType) {
+
         } else {
-            throw new UnsupportedOperationException(String.format("Wrong conversion from %s to %s", this, t.toString()));
+            new ErrorType(t.getLine(), t.getColumn(), String.format("Wrong conversion from %s to %s", this, t.toString()));//throw new UnsupportedOperationException(String.format("Wrong conversion from %s to %s", this, t.toString()));
         }
+        return "";
     }
 
     @Override

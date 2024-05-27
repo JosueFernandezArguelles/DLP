@@ -50,4 +50,6 @@ public interface Visitor <TP, TR>{
     public TR visit(IntegerType i, TP param );
     public TR visit(RecordType r, TP param );
     public TR visit(VoidType v, TP param );
+
+    public TR visit(BooleanType booleanType, TP param);
 }
