@@ -1,0 +1,161 @@
+'* Main Function: 
+call main 
+halt 
+ 
+'* Global Variables: 
+
+'*Line: 1
+main: 
+'*Local Variables: 
+'*int  a (offset -2) 
+enter 2 
+
+'*Line: 4
+push bp 
+pushi -2
+addi 
+pushi 3 
+storei 
+
+'*Line: 5
+
+'*Line: 5
+
+'*Line: 5
+
+'*Line: 5
+push bp 
+pushi -2
+addi 
+loadi 
+pushi 3 
+eqi 
+
+'*Line: 5
+push bp 
+pushi -2
+addi 
+loadi 
+pushi 4 
+gti 
+not 
+and 
+
+'*Line: 5
+push bp 
+pushi -2
+addi 
+loadi 
+pushi 0 
+lti 
+or 
+jz label0
+
+'*Line: 6
+'* Write:  
+
+'*Line: 6
+push bp 
+pushi -2
+addi 
+loadi 
+pushi 3 
+eqi 
+jz label2
+pushb 116 
+outb  
+pushb 114 
+outb  
+pushb 117 
+outb  
+pushb 101 
+outb  
+jmp label3
+label2: 
+pushb 102 
+outb  
+pushb 97 
+outb  
+pushb 108 
+outb  
+pushb 115 
+outb  
+pushb 101 
+outb  
+label3: 
+
+'*Line: 6
+'* Write:  
+pushb 10 
+outb 
+jmp label1
+label0: 
+label1: 
+
+'*Line: 9
+'*While: 
+label4: 
+
+'*Line: 9
+push bp 
+pushi -2
+addi 
+loadi 
+pushi 6 
+lti 
+jz label5
+
+'*Line: 10
+'* Write:  
+
+'*Line: 10
+push bp 
+pushi -2
+addi 
+loadi 
+pushi 4 
+lti 
+jz label6
+pushb 116 
+outb  
+pushb 114 
+outb  
+pushb 117 
+outb  
+pushb 101 
+outb  
+jmp label7
+label6: 
+pushb 102 
+outb  
+pushb 97 
+outb  
+pushb 108 
+outb  
+pushb 115 
+outb  
+pushb 101 
+outb  
+label7: 
+
+'*Line: 10
+'* Write:  
+pushb 32 
+outb 
+
+'*Line: 11
+push bp 
+pushi -2
+addi 
+
+'*Line: 11
+push bp 
+pushi -2
+addi 
+loadi 
+pushi 1 
+addi 
+storei 
+jmp label4
+label5: 
+ret 0,2,0 

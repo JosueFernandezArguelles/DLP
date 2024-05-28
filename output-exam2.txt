@@ -1,0 +1,109 @@
+'* Main Function: 
+call main 
+halt 
+ 
+'* Global Variables: 
+
+'*Line: 1
+greater: 
+'*Local Variables: 
+
+'*Line: 1
+
+'*Line: 1
+push bp 
+pushi 4
+addi 
+loadi 
+pushi 1 
+gti 
+ret 2,0,2 
+
+'*Line: 3
+main: 
+'*Local Variables: 
+'*int  a (offset -2) 
+'*double  d (offset -6) 
+enter 6 
+
+'*Line: 6
+push bp 
+pushi -2
+addi 
+pushi 3 
+storei 
+
+'*Line: 7
+push bp 
+pushi -6
+addi 
+pushf 3.3 
+storef 
+
+'*Line: 8
+
+'*Line: 8
+push bp 
+pushi -2
+addi 
+loadi 
+pushi 3 
+eqi 
+call greater
+popi
+
+'*Line: 9
+pushi 1 
+jz label0
+
+'*Line: 10
+push bp 
+pushi -2
+addi 
+
+'*Line: 10
+push bp 
+pushi -6
+addi 
+loadf 
+pushf 3.3 
+gtf 
+storei 
+jmp label1
+label0: 
+label1: 
+
+'*Line: 12
+push bp 
+pushi -2
+addi 
+
+'*Line: 12
+pushi 1 
+
+'*Line: 12
+pushb 51 
+pushb 50 
+gti 
+add 
+storei 
+
+'*Line: 13
+'*While: 
+label2: 
+pushi 0 
+jz label3
+
+'*Line: 14
+'* Write:  
+pushi 0 
+
+'*Line: 14
+pushi 3 
+pushi 2 
+eqi 
+sub 
+out 
+jmp label2
+label3: 
+ret 0,6,0 
